@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <RootNamespace>Jhacks_NextGen</RootNamespace>
+    <Nullable>enable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="vape.zip" />
+    <None Remove="zelix.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="vape.zip" />
+    <EmbeddedResource Include="zelix.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
+    <PackageReference Include="Radzen.Blazor" Version="4.15.7" />
+    <PackageReference Include="System.Management" Version="7.0.2" />
+  </ItemGroup>
+
+</Project>
