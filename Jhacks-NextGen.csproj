@@ -8,6 +8,8 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <Platforms>AnyCPU;x64</Platforms>
+    <ErrorReport>none</ErrorReport>
+    <UseWPF>False</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>

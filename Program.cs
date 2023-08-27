@@ -11,7 +11,13 @@ namespace Jhacks_NextGen
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            bool aaa = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
+            if (aaa)
+            {
+                DevConsole.Instance.Show(); // Show DevConsole window
+            }
             Application.Run(new MainForm());
+            
 
         }
     }

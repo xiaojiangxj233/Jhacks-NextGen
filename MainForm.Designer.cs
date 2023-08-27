@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             tabControl1 = new TabControl();
             Home = new TabPage();
             BCtextBox1 = new TextBox();
@@ -40,10 +41,17 @@
             SelectBox = new ComboBox();
             label1 = new Label();
             Settings = new TabPage();
+            button3 = new Button();
+            button5 = new Button();
             About = new TabPage();
+            label5 = new Label();
+            button4 = new Button();
+            label4 = new Label();
             openFileDialog1 = new OpenFileDialog();
             tabControl1.SuspendLayout();
             Home.SuspendLayout();
+            Settings.SuspendLayout();
+            About.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -134,7 +142,7 @@
             jinchenBox.Name = "jinchenBox";
             jinchenBox.Size = new Size(512, 29);
             jinchenBox.TabIndex = 3;
-            jinchenBox.Text = "javaw.exe";
+            jinchenBox.Text = "javaw";
             // 
             // SelectDLLBtn
             // 
@@ -144,6 +152,7 @@
             SelectDLLBtn.TabIndex = 2;
             SelectDLLBtn.Text = "浏览";
             SelectDLLBtn.UseVisualStyleBackColor = true;
+            SelectDLLBtn.Click += SelectDLLBtn_Click;
             // 
             // SelectBox
             // 
@@ -168,6 +177,8 @@
             // 
             // Settings
             // 
+            Settings.Controls.Add(button3);
+            Settings.Controls.Add(button5);
             Settings.Location = new Point(4, 26);
             Settings.Name = "Settings";
             Settings.Padding = new Padding(3);
@@ -176,8 +187,33 @@
             Settings.Text = "设置";
             Settings.UseVisualStyleBackColor = true;
             // 
+            // button3
+            // 
+            button3.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button3.Location = new Point(265, 44);
+            button3.Name = "button3";
+            button3.Size = new Size(253, 71);
+            button3.TabIndex = 0;
+            button3.Text = "显示开发控制台";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
+            // button5
+            // 
+            button5.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button5.Location = new Point(265, 44);
+            button5.Name = "button5";
+            button5.Size = new Size(253, 71);
+            button5.TabIndex = 1;
+            button5.Text = "隐藏开发控制台";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
             // About
             // 
+            About.Controls.Add(label5);
+            About.Controls.Add(button4);
+            About.Controls.Add(label4);
             About.Location = new Point(4, 26);
             About.Name = "About";
             About.Size = new Size(795, 419);
@@ -185,9 +221,39 @@
             About.Text = "关于";
             About.UseVisualStyleBackColor = true;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(203, 146);
+            label5.Name = "label5";
+            label5.Size = new Size(435, 17);
+            label5.TabIndex = 2;
+            label5.Text = "注意：你是用的是未完成的Dev版本，Dev版本有许多bug，且许多功能都未完成";
+            // 
+            // button4
+            // 
+            button4.Location = new Point(1, 129);
+            button4.Name = "button4";
+            button4.Size = new Size(184, 51);
+            button4.TabIndex = 1;
+            button4.Text = "点此进入QQ群";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Microsoft YaHei UI", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            label4.Location = new Point(3, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(789, 124);
+            label4.TabIndex = 0;
+            label4.Text = "Jhacks-NextGen";
+            // 
             // openFileDialog1
             // 
             openFileDialog1.FileName = "openFileDialog1";
+            openFileDialog1.Filter = "DLL文件(*.dll)|*.dll";
             // 
             // MainForm
             // 
@@ -195,11 +261,15 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(795, 450);
             Controls.Add(tabControl1);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MainForm";
-            Text = "Jhacks-NextGen(dev-version)";
+            Text = "Jhacks-NextGen";
             tabControl1.ResumeLayout(false);
             Home.ResumeLayout(false);
             Home.PerformLayout();
+            Settings.ResumeLayout(false);
+            About.ResumeLayout(false);
+            About.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -219,5 +289,10 @@
         private OpenFileDialog openFileDialog1;
         private Button button1;
         private TextBox BCtextBox1;
+        private Button button3;
+        private Label label4;
+        private Button button4;
+        private Label label5;
+        private Button button5;
     }
 }

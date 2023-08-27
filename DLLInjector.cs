@@ -13,7 +13,7 @@ namespace Jhacks_NextGen
         private static extern IntPtr OpenProcess(
             int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
 
-        [DllImport("kernel32.dll", SetLastError = true)]
+        [DllImport("ke  rnel32.dll", SetLastError = true)]
         private static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
 
         [DllImport("kernel32.dll", SetLastError = true)]

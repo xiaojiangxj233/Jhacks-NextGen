@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO.Compression;
+using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -15,18 +16,50 @@ namespace Jhacks_NextGen
         private static bool shouldDeleteFolder = true;
         public MainForm()
         {
-            InitializeComponent();
-            // 在窗体加载时执行复制和解压缩操作
-            CopyAndExtractFiles();
-            FetchAndDisplayContentAsync();
+
 
             // 绑定窗体关闭事件
             this.FormClosing += MainForm_FormClosing;
             bool isRunningAsAdmin = ProcessHelper.IsRunningAsAdmin();
             if (isRunningAsAdmin)
             {
-                ProcessList.PopulateProcessList(jinchenBox);
+                // 在初始化组件之前执行硬件 ID 检查
+                string hwid = ProcessHelper.GetHardwareId();
+                bool isHwidValid = CheckHardwareId(hwid);
+
+                if (!isHwidValid)
+                {
+                    MessageBox.Show("你的hwid没有被录入，请打开https://jhacks.xiaojiang233.top进行录入，按确定键复制你的hwid", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+                    // 复制 hwid 到剪贴板
+                    Clipboard.SetText(hwid);
+
+                    // 关闭应用程序
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    InitializeComponent();
+                    // 在窗体加载时执行复制和解压缩操作
+                    CopyAndExtractFiles();
+                    EnsureLogsDirectoryExists();
+                    FetchAndDisplayContentAsync();
+                    bool isDevelopmentEnvironment = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
+                    if (isDevelopmentEnvironment)
+                    {
+                        this.Text = this.Text + "(Dev-Build)";
+                        DevConsole.Instance.WriteLine("程序加载完成");
+
+                    }
+                    else
+                    {
+                        this.Text = this.Text;
+                        DevConsole.Instance.Hide();
+                    }
+                }
                 
+
 
             }
             else
@@ -34,11 +67,30 @@ namespace Jhacks_NextGen
                 MessageBox.Show("请使用管理员权限运行此程序", "信息");
                 Environment.Exit(0);
             }
-            
-            
 
 
 
+
+
+        }
+        private bool CheckHardwareId(string hwid)
+        {
+            try
+            {
+                string url = $"https://jhacks.xiaojiang233.top/GET.php?hwid={hwid}";
+
+                using (WebClient client = new WebClient())
+                {
+                    string response = client.DownloadString(url);
+                    return response.Trim().ToLower() == "true";
+                }
+            }
+            catch (Exception ex)
+            {
+                // 处理异常，例如网络问题等
+                Console.WriteLine(ex.Message);
+                return false;
+            }
         }
         public class ProcessList
         {
@@ -52,12 +104,12 @@ namespace Jhacks_NextGen
                     // 遍历进程列表并将进程名称添加到 ComboBox 控件中
                     foreach (Process process in processes)
                     {
-                        comboBox.Items.Add(process.ProcessName + ".exe" + "(pid:" + ProcessHelper.FindPid(process.ProcessName) + ")");
+                        comboBox.Items.Add(process.ProcessName);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("获取进程列表出错：" + ex.Message);
+                    DevConsole.Instance.WriteLine("获取进程列表出错：" + ex.Message);
                 }
             }
         }
@@ -72,16 +124,32 @@ namespace Jhacks_NextGen
             int processpid = ProcessHelper.FindPid(jinchenBox.Text);
             if (processpid != -1)
             {
-                string selectedText = jinchenBox.SelectedItem.ToString();
+                string selectedText = jinchenBox.SelectedText.ToString();
                 if (selectedText == "Zelix Cracked(1.12.2)")
                 {
-                    DLLInjector.InjectDLL(jhacksFolderPath + "zelix.dll", processpid);
+                    bool aaa = DLLInjector.InjectDLL(jhacksFolderPath + "zelix.dll", processpid);
+                    if (aaa)
+                    {
+                        MessageBox.Show("注入成功");
+                        DevConsole.Instance.WriteLine("注入成功");
+                    }
+                    else
+                    {
+                        MessageBox.Show("注入失败");
+                        DevConsole.Instance.WriteLine("注入成功");
+                    }
+                }
+                else if (selectedText == "Vape V1")
+                {
+
                 }
 
             }
             else
             {
+                DevConsole.Instance.WriteLine("进程不存在");
                 MessageBox.Show("进程不存在");
+
                 return;
             }
 
@@ -128,7 +196,14 @@ namespace Jhacks_NextGen
                     string vapeZipExtractPath = Path.Combine(jhacksFolderPath, "vape");
                     ZipFile.ExtractToDirectory(vapeZipDestinationPath, vapeZipExtractPath);
 
-                    Console.WriteLine("文件复制、解压缩完成！");
+                    DevConsole.Instance.WriteLine("文件复制、解压缩完成！");
+                    // 删除 vape.zip 文件
+                    string vapeZipDestinationPath1 = Path.Combine(jhacksFolderPath, "vape.zip");
+                    if (File.Exists(vapeZipDestinationPath))
+                    {
+                        File.Delete(vapeZipDestinationPath);
+                        DevConsole.Instance.WriteLine("vape.zip 文件已删除！");
+                    }
                 }
 
                 // 在窗体关闭事件中取消删除临时文件夹的操作
@@ -136,7 +211,7 @@ namespace Jhacks_NextGen
             }
             catch (Exception ex)
             {
-                Console.WriteLine("操作出错：" + ex.Message);
+                DevConsole.Instance.WriteLine("操作出错：" + ex.Message);
             }
         }
 
@@ -149,19 +224,13 @@ namespace Jhacks_NextGen
         {
             if (shouldDeleteFolder)
             {
-                // 删除 vape.zip 文件
-                string vapeZipDestinationPath = Path.Combine(jhacksFolderPath, "vape.zip");
-                if (File.Exists(vapeZipDestinationPath))
-                {
-                    File.Delete(vapeZipDestinationPath);
-                    Console.WriteLine("vape.zip 文件已删除！");
-                }
+
 
                 // 删除临时文件夹及其内容
                 if (Directory.Exists(jhacksFolderPath))
                 {
                     Directory.Delete(jhacksFolderPath, true);
-                    Console.WriteLine("临时文件夹已删除！");
+                    DevConsole.Instance.WriteLine("临时文件夹已删除！");
                 }
             }
         }
@@ -185,7 +254,7 @@ namespace Jhacks_NextGen
             }
             catch (Exception ex)
             {
-                Console.WriteLine("获取内容失败：" + ex.Message);
+                DevConsole.Instance.WriteLine("获取内容失败：" + ex.Message);
             }
         }
 
@@ -213,6 +282,41 @@ namespace Jhacks_NextGen
             // 找到一对 Cloudflare 脚本，并将其删除
             string pattern = @"\(function\(\)\{var js = ""window\['__CF\$cv\$params'\].*?;\}\)\(\);";
             return Regex.Replace(input, pattern, "");
+        }
+
+        private void SelectDLLBtn_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.OpenFile();
+
+        }
+        private void EnsureLogsDirectoryExists()
+        {
+            string logsDirectory = System.IO.Path.Combine(Application.StartupPath, "Jhacks-NextGen");
+            if (!System.IO.Directory.Exists(logsDirectory))
+            {
+                System.IO.Directory.CreateDirectory(logsDirectory);
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://qm.qq.com/cgi-bin/qm/qr?k=KBXdszckZORIyvIPoGUQ-N3AXzxLV_8w&jump_from=webapi&authKey=KNH0Jehi+S9f82d7tEYep7CGILDJ1KOyLNlqVxTmVIoJQ4U+MVts104+i4xVceUA");
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            this.button3.Hide();
+            this.button5.Show();
+            DevConsole.Instance.Show();
+            
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.button3.Show();
+            this.button5.Hide();
+            DevConsole.Instance.Hide();
+            
         }
     }
 }
