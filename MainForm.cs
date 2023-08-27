@@ -29,7 +29,7 @@ namespace Jhacks_NextGen
 
                 if (!isHwidValid)
                 {
-                    MessageBox.Show("你的hwid没有被录入，请打开https://jhacks.xiaojiang233.top进行录入，按确定键复制你的hwid", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("你的hwid没有被录入，请打开https://jhacks.xiaojiang233.top进行录入，按确定键复制你的hwid\n或者你的网络出现了问题，检查后重试", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 
                     // 复制 hwid 到剪贴板
