@@ -1,3 +1,4 @@
+using Microsoft.JSInterop;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO.Compression;
@@ -14,8 +15,13 @@ namespace Jhacks_NextGen
         private static HttpClient httpClient = new HttpClient();
         private static string jhacksFolderPath;
         private static bool shouldDeleteFolder = true;
+        QQNumberExtractor qqNumberExtractor = new QQNumberExtractor();
+        private DateTime startTime;
+        private int clicks;
+        private string logFilePath = "Jhacks-NextGen\\CPSTester.txt";
         public MainForm()
         {
+
 
 
             // 绑定窗体关闭事件
@@ -40,6 +46,7 @@ namespace Jhacks_NextGen
                 }
                 else
                 {
+
                     InitializeComponent();
                     // 在窗体加载时执行复制和解压缩操作
                     CopyAndExtractFiles();
@@ -49,22 +56,41 @@ namespace Jhacks_NextGen
                     if (isDevelopmentEnvironment)
                     {
                         this.Text = this.Text + "(Dev-Build)";
-                        DevConsole.Instance.WriteLine("程序加载完成");
+                        DevConsole.Instance.WriteLine("程序加载完成(Debug)");
+
 
                     }
                     else
                     {
                         this.Text = this.Text;
                         DevConsole.Instance.Hide();
+                        this.Text = this.Text + "(Release-Build)";
+                        DevConsole.Instance.WriteLine("程序加载完成");
                     }
+                    ModeComboBox.Items.Add("左键模式");
+                    ModeComboBox.Items.Add("右键模式");
+
+                    // 向 TimeComboBox 添加选项
+                    TimecomboBox.Items.Add("1秒");
+                    TimecomboBox.Items.Add("5秒");
+                    TimecomboBox.Items.Add("10秒");
+                    TimecomboBox.Items.Add("20秒");
+
+                    // 创建目录并加载日志数据
+                    Directory.CreateDirectory("Jhacks-NextGen");
+                    LoadLogData();
+
+                    // 更新按钮文本
+                    UpdateButtonText();
                 }
-                
+
 
 
             }
             else
             {
                 MessageBox.Show("请使用管理员权限运行此程序", "信息");
+                DevConsole.Instance.WriteLine("未使用管理员权限运行，退出");
                 Environment.Exit(0);
             }
 
@@ -88,10 +114,59 @@ namespace Jhacks_NextGen
             catch (Exception ex)
             {
                 // 处理异常，例如网络问题等
-                Console.WriteLine(ex.Message);
+                DevConsole.Instance.WriteLine("验证HWID失败:" + (ex.Message));
                 return false;
             }
         }
+        private void LoadLogData()
+        {
+            if (File.Exists(logFilePath))
+            {
+                string[] lines = File.ReadAllLines(logFilePath);
+                LogListBox.Items.AddRange(lines);
+            }
+        }
+        private void UpdateButtonText()
+        {
+            if (timer1.Enabled)
+                CPStestbtn.Text = "点我";
+            else
+                CPStestbtn.Text = "点击以开始";
+        }
+        private void StartTimer()
+        {
+            startTime = DateTime.Now;
+            clicks = 0;
+            timer1.Start();
+            UpdateButtonText();
+        }
+        private void StopTimer()
+        {
+            timer1.Stop();
+            UpdateButtonText();
+        }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            TimeSpan elapsedTime = DateTime.Now - startTime;
+            int totalMilliseconds = (int)elapsedTime.TotalMilliseconds;
+            int cps = (int)Math.Round((clicks / (totalMilliseconds / 1000.0)), 2);
+
+            timelabel.Text = $"剩余时长: {20 - elapsedTime.TotalSeconds:F1}秒";
+        }
+        private void CPStestbtn_Click(object sender, EventArgs e)
+        {
+            if (timer1.Enabled)
+            {
+                clicks++;
+                int cps = (int)Math.Round(clicks / (20 - timer1.Interval / 1000.0), 2);
+                LogListBox.Items.Add($"{DateTime.Now} {cps}CPS");
+            }
+            else
+            {
+                StartTimer();
+            }
+        }
+
         public class ProcessList
         {
             public static void PopulateProcessList(ComboBox comboBox)
@@ -124,10 +199,13 @@ namespace Jhacks_NextGen
             int processpid = ProcessHelper.FindPid(jinchenBox.Text);
             if (processpid != -1)
             {
-                string selectedText = jinchenBox.SelectedText.ToString();
-                if (selectedText == "Zelix Cracked(1.12.2)")
+                DevConsole.Instance.WriteLine(jinchenBox.Text + "程序的pid为" + processpid);
+                int selectedText = jinchenBox.SelectedIndex;
+                if (selectedText == 0)
                 {
-                    bool aaa = DLLInjector.InjectDLL(jhacksFolderPath + "zelix.dll", processpid);
+                    bool aaa = true;
+                    DLLInjector.Instance.InjectDLL(processpid, jhacksFolderPath + "\\zelix.dll");
+                    DevConsole.Instance.WriteLine(processpid + "," + jhacksFolderPath + "\\zelix.dll");
                     if (aaa)
                     {
                         MessageBox.Show("注入成功");
@@ -139,7 +217,11 @@ namespace Jhacks_NextGen
                         DevConsole.Instance.WriteLine("注入成功");
                     }
                 }
-                else if (selectedText == "Vape V1")
+                else if (selectedText == 1)
+                {
+
+                }
+                else
                 {
 
                 }
@@ -163,6 +245,7 @@ namespace Jhacks_NextGen
 
                 // 创建 Jhacks-NextGen 文件夹路径
                 jhacksFolderPath = Path.Combine(tempFolderPath, "Jhacks-NextGen");
+                DevConsole.Instance.WriteLine("Jhacks临时文件夹目录:" + jhacksFolderPath);
 
                 // 创建 Jhacks-NextGen 文件夹
                 Directory.CreateDirectory(jhacksFolderPath);
@@ -171,8 +254,8 @@ namespace Jhacks_NextGen
                 Assembly assembly = Assembly.GetExecutingAssembly();
 
                 // 构建资源名称
-                string zelixResourceName = "Jhacks_NextGen.zelix.dll";
-                string vapeResourceName = "Jhacks_NextGen.vape.zip";
+                string zelixResourceName = "Jhacks_NextGen.src.zelix.dll";
+                string vapeResourceName = "Jhacks_NextGen.src.vape.zip";
 
                 // 复制并解压资源
                 using (Stream zelixStream = assembly.GetManifestResourceStream(zelixResourceName))
@@ -300,7 +383,7 @@ namespace Jhacks_NextGen
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Process.Start("https://qm.qq.com/cgi-bin/qm/qr?k=KBXdszckZORIyvIPoGUQ-N3AXzxLV_8w&jump_from=webapi&authKey=KNH0Jehi+S9f82d7tEYep7CGILDJ1KOyLNlqVxTmVIoJQ4U+MVts104+i4xVceUA");
+            System.Diagnostics.Process.Start("https://qm.qq.com/cgi-bin/qm/qr?k=KBXdszckZORIyvIPoGUQ-N3AXzxLV_8w&jump_from=webapi&authKey=KNH0Jehi+S9f82d7tEYep7CGILDJ1KOyLNlqVxTmVIoJQ4U+MVts104+i4xVceUA");
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -308,7 +391,7 @@ namespace Jhacks_NextGen
             this.button3.Hide();
             this.button5.Show();
             DevConsole.Instance.Show();
-            
+
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -316,7 +399,18 @@ namespace Jhacks_NextGen
             this.button3.Show();
             this.button5.Hide();
             DevConsole.Instance.Hide();
-            
+
+        }
+
+        private void SelectBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            string qqnumber = qqNumberExtractor.ExtractSingleQQNumber();
+            DevConsole.Instance.WriteLine(qqnumber);
         }
     }
 }

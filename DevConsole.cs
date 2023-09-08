@@ -68,7 +68,11 @@ namespace Jhacks_NextGen
         {
             Application.Restart();
         }
-        
+
+        private void DevConsole_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
 

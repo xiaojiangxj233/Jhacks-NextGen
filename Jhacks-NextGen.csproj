@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows</TargetFramework>
+    <TargetFramework>net6.0-windows10.0.18362.0</TargetFramework>
     <RootNamespace>Jhacks_NextGen</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,6 +10,25 @@
     <Platforms>AnyCPU;x64</Platforms>
     <ErrorReport>none</ErrorReport>
     <UseWPF>False</UseWPF>
+    <SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
+    <StartupObject>Jhacks_NextGen.Program</StartupObject>
+    <ApplicationIcon>Fav.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DebugType>embedded</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,14 +37,35 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="vape.zip" />
-    <EmbeddedResource Include="zelix.dll" />
+    <Content Include="Fav.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="src\vape.zip" />
+    <EmbeddedResource Include="src\zelix.dll" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
+    <PackageReference Include="LibSassBuilder" Version="3.0.0" />
     <PackageReference Include="Radzen.Blazor" Version="4.15.7" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.4" />
     <PackageReference Include="System.Management" Version="7.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 
 </Project>

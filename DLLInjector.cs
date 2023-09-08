@@ -1,101 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Jhacks_NextGen
 {
+    // Singleton模式用于封装和调用DLL中的方法
     public class DLLInjector
     {
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr OpenProcess(
-            int dwDesiredAccess, bool bInheritHandle, int dwProcessId);
+        private static DLLInjector instance;
 
-        [DllImport("ke  rnel32.dll", SetLastError = true)]
-        private static extern IntPtr GetProcAddress(IntPtr hModule, string lpProcName);
+        private DLLInjector() { }
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr GetModuleHandle(string lpModuleName);
+        public static DLLInjector Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new DLLInjector();
+                }
+                return instance;
+            }
+        }
 
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr VirtualAllocEx(
-            IntPtr hProcess, IntPtr lpAddress, uint dwSize, uint flAllocationType, uint flProtect);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern bool WriteProcessMemory(
-            IntPtr hProcess, IntPtr lpBaseAddress, byte[] lpBuffer, uint nSize, out int lpNumberOfBytesWritten);
-
-        [DllImport("kernel32.dll", SetLastError = true)]
-        private static extern IntPtr CreateRemoteThread(
-            IntPtr hProcess, IntPtr lpThreadAttributes, uint dwStackSize, IntPtr lpStartAddress,
-            IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
-
-        private const int PROCESS_CREATE_THREAD = 0x0002;
-        private const int PROCESS_QUERY_INFORMATION = 0x0400;
-        private const int PROCESS_VM_OPERATION = 0x0008;
-        private const int PROCESS_VM_WRITE = 0x0020;
-        private const int PROCESS_VM_READ = 0x0010;
-        private const uint MEM_COMMIT = 0x00001000;
-        private const uint MEM_RESERVE = 0x00002000;
-        private const uint PAGE_READWRITE = 0x04;
-
-        public static bool InjectDLL(string dllPath, int processId)
+        public bool InjectDLL(int intValue, string stringValue)
         {
             try
             {
-                IntPtr processHandle = OpenProcess(
-                    PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION |
-                    PROCESS_VM_WRITE | PROCESS_VM_READ, false, processId);
-
-                if (processHandle == IntPtr.Zero)
+                // 从嵌入的资源中提取DLL
+                using (Stream dllStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Jhacks_NextGen.DLLinjector.dll"))
                 {
-                    Console.WriteLine("Failed to open process. Error: " + Marshal.GetLastWin32Error());
-                    return false;
+                    byte[] dllBytes = new byte[dllStream.Length];
+                    dllStream.Read(dllBytes, 0, dllBytes.Length);
+
+                    // 直接加载DLL到内存
+                    Assembly loadedAssembly = Assembly.Load(dllBytes);
+
+                    // 获取DLL中的类型和方法
+                    Type type = loadedAssembly.GetType("DLLinjector.InjectorClass");
+                    MethodInfo method = type.GetMethod("InjectDLL");
+
+                    // 创建类的实例并调用方法
+                    object instance = Activator.CreateInstance(type);
+                    object[] parameters = new object[] { intValue, stringValue };
+                    method.Invoke(instance, parameters);
                 }
 
-                IntPtr loadLibraryAddr = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
-
-                if (loadLibraryAddr == IntPtr.Zero)
-                {
-                    Console.WriteLine("Failed to get address of LoadLibraryA. Error: " + Marshal.GetLastWin32Error());
-                    return false;
-                }
-
-                byte[] dllPathBytes = System.Text.Encoding.ASCII.GetBytes(dllPath);
-                IntPtr allocatedMemory = VirtualAllocEx(
-                    processHandle, IntPtr.Zero, (uint)dllPathBytes.Length, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
-
-                if (allocatedMemory == IntPtr.Zero)
-                {
-                    Console.WriteLine("Failed to allocate memory in the remote process. Error: " + Marshal.GetLastWin32Error());
-                    return false;
-                }
-
-                int bytesWritten;
-                if (!WriteProcessMemory(processHandle, allocatedMemory, dllPathBytes, (uint)dllPathBytes.Length, out bytesWritten))
-                {
-                    Console.WriteLine("Failed to write DLL path to the remote process. Error: " + Marshal.GetLastWin32Error());
-                    return false;
-                }
-
-                IntPtr threadHandle = CreateRemoteThread(
-                    processHandle, IntPtr.Zero, 0, loadLibraryAddr, allocatedMemory, 0, IntPtr.Zero);
-
-                if (threadHandle == IntPtr.Zero)
-                {
-                    Console.WriteLine("Failed to create remote thread in the remote process. Error: " + Marshal.GetLastWin32Error());
-                    return false;
-                }
-
-                Console.WriteLine("DLL injected successfully.");
-                return true;
+                return true; // 方法执行成功
             }
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
-                return false;
+                return false; // 方法执行失败
             }
         }
     }

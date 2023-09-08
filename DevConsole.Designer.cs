@@ -40,7 +40,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Microsoft YaHei UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(98, 0);
+            label1.Location = new Point(308, 0);
             label1.Name = "label1";
             label1.Size = new Size(265, 46);
             label1.TabIndex = 0;
@@ -58,12 +58,12 @@
             CommandBox.Items.AddRange(new object[] { "Welcome to DevConsole" });
             CommandBox.Location = new Point(0, 49);
             CommandBox.Name = "CommandBox";
-            CommandBox.Size = new Size(469, 327);
+            CommandBox.Size = new Size(848, 327);
             CommandBox.TabIndex = 3;
             // 
             // button1
             // 
-            button1.Location = new Point(151, 388);
+            button1.Location = new Point(352, 397);
             button1.Name = "button1";
             button1.Size = new Size(156, 40);
             button1.TabIndex = 4;
@@ -75,7 +75,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(469, 463);
+            ClientSize = new Size(847, 463);
             Controls.Add(button1);
             Controls.Add(CommandBox);
             Controls.Add(label1);
@@ -84,6 +84,7 @@
             MaximizeBox = false;
             Name = "DevConsole";
             Text = "DevConsole";
+            Load += DevConsole_Load;
             ResumeLayout(false);
             PerformLayout();
         }
