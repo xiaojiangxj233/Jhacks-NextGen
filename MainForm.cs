@@ -5,6 +5,7 @@ using System.Drawing.Imaging;
 using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
+using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -461,6 +462,11 @@ namespace Jhacks_NextGen
         private void BCtextBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            pictureBox1.Refresh();
         }
     }
 }
