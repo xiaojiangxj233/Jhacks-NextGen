@@ -18,7 +18,7 @@ namespace Jhacks_NextGen
         private static string jhacksFolderPath;
         private static bool shouldDeleteFolder = true;
         private string QQNumber = GETQQ.GetQQNumber();
-
+        private LoadForm lFrom;
         private string hwid = ProcessHelper.GetHardwareId();
         public MainForm()
         {
@@ -78,6 +78,10 @@ namespace Jhacks_NextGen
                         this.Text = this.Text + "(Release-Build)";
                         DevConsole.Instance.WriteLine("程序加载完成");
                     }
+                    lFrom = new LoadForm();
+                    LoadForm.Instance.Hide();
+                    QQLabel.Text = GETQQ.GetQQNumber();
+                    ThisIPLable.Text = ProcessHelper.GetPublicIpAddress();
                 }
 
 
@@ -148,7 +152,6 @@ namespace Jhacks_NextGen
                 if (status)
                 {
                     // 如果status为true，则继续运行
-                    // LatestIPLabel.Text = latestIP;
                     return true;
                 }
                 else

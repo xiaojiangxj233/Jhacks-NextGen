@@ -2,6 +2,7 @@ namespace Jhacks_NextGen
 {
     internal static class Program
     {
+        
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -15,9 +16,12 @@ namespace Jhacks_NextGen
             if (aaa)
             {
                 DevConsole.Instance.Show(); // Show DevConsole window
+                
             }
+            LoadForm.Instance.Show();
             Application.Run(new MainForm());
             
+
 
         }
     }

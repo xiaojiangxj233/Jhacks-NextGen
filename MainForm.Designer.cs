@@ -33,13 +33,11 @@
             tabControl1 = new TabControl();
             Home = new TabPage();
             pictureBox1 = new PictureBox();
-            QQLabel = new Label();
-            label8 = new Label();
             panel1 = new Panel();
             ThisIPLable = new Label();
+            QQLabel = new Label();
             Label7 = new Label();
-            LatestIPLabel = new Label();
-            Label114514 = new Label();
+            label8 = new Label();
             BCtextBox1 = new TextBox();
             label1 = new Label();
             Inject = new TabPage();
@@ -95,8 +93,6 @@
             // Home
             // 
             Home.Controls.Add(pictureBox1);
-            Home.Controls.Add(QQLabel);
-            Home.Controls.Add(label8);
             Home.Controls.Add(panel1);
             Home.Controls.Add(BCtextBox1);
             Home.Controls.Add(label1);
@@ -113,37 +109,17 @@
             pictureBox1.ImageLocation = "https://t.mwm.moe/moe";
             pictureBox1.Location = new Point(23, 183);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(417, 215);
+            pictureBox1.Size = new Size(407, 215);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox1.TabIndex = 14;
             pictureBox1.TabStop = false;
             // 
-            // QQLabel
-            // 
-            QQLabel.AutoSize = true;
-            QQLabel.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            QQLabel.Location = new Point(135, 91);
-            QQLabel.Name = "QQLabel";
-            QQLabel.Size = new Size(78, 25);
-            QQLabel.TabIndex = 13;
-            QQLabel.Text = "114514";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(23, 91);
-            label8.Name = "label8";
-            label8.Size = new Size(118, 25);
-            label8.TabIndex = 12;
-            label8.Text = "已登录QQ：";
-            // 
             // panel1
             // 
             panel1.Controls.Add(ThisIPLable);
+            panel1.Controls.Add(QQLabel);
             panel1.Controls.Add(Label7);
-            panel1.Controls.Add(LatestIPLabel);
-            panel1.Controls.Add(Label114514);
+            panel1.Controls.Add(label8);
             panel1.Location = new Point(523, 11);
             panel1.Name = "panel1";
             panel1.Size = new Size(272, 71);
@@ -153,51 +129,49 @@
             // 
             ThisIPLable.AutoSize = true;
             ThisIPLable.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
-            ThisIPLable.Location = new Point(104, 39);
+            ThisIPLable.Location = new Point(104, 9);
             ThisIPLable.Name = "ThisIPLable";
             ThisIPLable.Size = new Size(57, 20);
             ThisIPLable.TabIndex = 13;
             ThisIPLable.Text = "114514";
             // 
+            // QQLabel
+            // 
+            QQLabel.AutoSize = true;
+            QQLabel.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            QQLabel.Location = new Point(115, 35);
+            QQLabel.Name = "QQLabel";
+            QQLabel.Size = new Size(78, 25);
+            QQLabel.TabIndex = 13;
+            QQLabel.Text = "114514";
+            // 
             // Label7
             // 
             Label7.AutoSize = true;
             Label7.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
-            Label7.Location = new Point(3, 39);
+            Label7.Location = new Point(3, 9);
             Label7.Name = "Label7";
             Label7.Size = new Size(95, 20);
             Label7.TabIndex = 12;
             Label7.Text = "这一次使用IP:";
             // 
-            // LatestIPLabel
+            // label8
             // 
-            LatestIPLabel.AutoSize = true;
-            LatestIPLabel.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
-            LatestIPLabel.Location = new Point(104, 9);
-            LatestIPLabel.Name = "LatestIPLabel";
-            LatestIPLabel.Size = new Size(57, 20);
-            LatestIPLabel.TabIndex = 11;
-            LatestIPLabel.Text = "114514";
-            LatestIPLabel.Click += label7_Click;
-            // 
-            // Label114514
-            // 
-            Label114514.AutoSize = true;
-            Label114514.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
-            Label114514.Location = new Point(3, 9);
-            Label114514.Name = "Label114514";
-            Label114514.Size = new Size(95, 20);
-            Label114514.TabIndex = 10;
-            Label114514.Text = "上一次使用IP:";
-            Label114514.Click += LatestIPLabel_Click;
+            label8.AutoSize = true;
+            label8.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Location = new Point(3, 35);
+            label8.Name = "label8";
+            label8.Size = new Size(118, 25);
+            label8.TabIndex = 12;
+            label8.Text = "已登录QQ：";
             // 
             // BCtextBox1
             // 
-            BCtextBox1.Location = new Point(513, 183);
+            BCtextBox1.Location = new Point(484, 183);
             BCtextBox1.Multiline = true;
             BCtextBox1.Name = "BCtextBox1";
             BCtextBox1.ReadOnly = true;
-            BCtextBox1.Size = new Size(279, 215);
+            BCtextBox1.Size = new Size(300, 215);
             BCtextBox1.TabIndex = 9;
             BCtextBox1.TextChanged += BCtextBox1_TextChanged;
             // 
@@ -471,7 +445,9 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(795, 450);
             Controls.Add(tabControl1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "MainForm";
             Text = "Jhacks-NextGen";
             tabControl1.ResumeLayout(false);
@@ -521,12 +497,10 @@
         private Button button3;
         private Button button5;
         private TextBox BCtextBox1;
-        private Label Label114514;
         private TextBox textBox1;
         private Button button7;
         private Label label6;
         private Panel panel1;
-        private Label LatestIPLabel;
         private Label QQLabel;
         private Label label8;
         private Label ThisIPLable;
