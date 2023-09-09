@@ -31,8 +31,18 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             tabControl1 = new TabControl();
-            Inject = new TabPage();
+            Home = new TabPage();
+            pictureBox1 = new PictureBox();
+            QQLabel = new Label();
+            label8 = new Label();
+            panel1 = new Panel();
+            ThisIPLable = new Label();
+            Label7 = new Label();
+            LatestIPLabel = new Label();
+            Label114514 = new Label();
             BCtextBox1 = new TextBox();
+            label1 = new Label();
+            Inject = new TabPage();
             button1 = new Button();
             label3 = new Label();
             label2 = new Label();
@@ -41,18 +51,15 @@
             SelectDLLBtn = new Button();
             SelectBox = new ComboBox();
             Settings = new TabPage();
+            label6 = new Label();
+            Tools = new TabPage();
+            tabControl2 = new TabControl();
+            ABCD = new TabPage();
+            button7 = new Button();
+            textBox1 = new TextBox();
             button6 = new Button();
             button3 = new Button();
             button5 = new Button();
-            Tools = new TabPage();
-            tabControl2 = new TabControl();
-            CPSTester = new TabPage();
-            clicklabel = new Label();
-            timelabel = new Label();
-            TimecomboBox = new ComboBox();
-            ModeComboBox = new ComboBox();
-            CPStestbtn = new Button();
-            LogListBox = new ListBox();
             more = new TabPage();
             About = new TabPage();
             label5 = new Label();
@@ -60,16 +67,16 @@
             label4 = new Label();
             openFileDialog1 = new OpenFileDialog();
             timer1 = new System.Windows.Forms.Timer(components);
-            Home = new TabPage();
-            label1 = new Label();
             tabControl1.SuspendLayout();
+            Home.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel1.SuspendLayout();
             Inject.SuspendLayout();
             Settings.SuspendLayout();
             Tools.SuspendLayout();
             tabControl2.SuspendLayout();
-            CPSTester.SuspendLayout();
+            ABCD.SuspendLayout();
             About.SuspendLayout();
-            Home.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -85,9 +92,127 @@
             tabControl1.Size = new Size(803, 449);
             tabControl1.TabIndex = 0;
             // 
+            // Home
+            // 
+            Home.Controls.Add(pictureBox1);
+            Home.Controls.Add(QQLabel);
+            Home.Controls.Add(label8);
+            Home.Controls.Add(panel1);
+            Home.Controls.Add(BCtextBox1);
+            Home.Controls.Add(label1);
+            Home.Location = new Point(4, 26);
+            Home.Name = "Home";
+            Home.Size = new Size(795, 419);
+            Home.TabIndex = 4;
+            Home.Text = "主页";
+            Home.UseVisualStyleBackColor = true;
+            Home.Click += Home_Click;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.ImageLocation = "https://t.mwm.moe/moe";
+            pictureBox1.Location = new Point(23, 183);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(417, 215);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 14;
+            pictureBox1.TabStop = false;
+            // 
+            // QQLabel
+            // 
+            QQLabel.AutoSize = true;
+            QQLabel.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            QQLabel.Location = new Point(135, 91);
+            QQLabel.Name = "QQLabel";
+            QQLabel.Size = new Size(78, 25);
+            QQLabel.TabIndex = 13;
+            QQLabel.Text = "114514";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label8.Location = new Point(23, 91);
+            label8.Name = "label8";
+            label8.Size = new Size(118, 25);
+            label8.TabIndex = 12;
+            label8.Text = "已登录QQ：";
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(ThisIPLable);
+            panel1.Controls.Add(Label7);
+            panel1.Controls.Add(LatestIPLabel);
+            panel1.Controls.Add(Label114514);
+            panel1.Location = new Point(523, 11);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(272, 71);
+            panel1.TabIndex = 11;
+            // 
+            // ThisIPLable
+            // 
+            ThisIPLable.AutoSize = true;
+            ThisIPLable.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            ThisIPLable.Location = new Point(104, 39);
+            ThisIPLable.Name = "ThisIPLable";
+            ThisIPLable.Size = new Size(57, 20);
+            ThisIPLable.TabIndex = 13;
+            ThisIPLable.Text = "114514";
+            // 
+            // Label7
+            // 
+            Label7.AutoSize = true;
+            Label7.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            Label7.Location = new Point(3, 39);
+            Label7.Name = "Label7";
+            Label7.Size = new Size(95, 20);
+            Label7.TabIndex = 12;
+            Label7.Text = "这一次使用IP:";
+            // 
+            // LatestIPLabel
+            // 
+            LatestIPLabel.AutoSize = true;
+            LatestIPLabel.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            LatestIPLabel.Location = new Point(104, 9);
+            LatestIPLabel.Name = "LatestIPLabel";
+            LatestIPLabel.Size = new Size(57, 20);
+            LatestIPLabel.TabIndex = 11;
+            LatestIPLabel.Text = "114514";
+            LatestIPLabel.Click += label7_Click;
+            // 
+            // Label114514
+            // 
+            Label114514.AutoSize = true;
+            Label114514.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            Label114514.Location = new Point(3, 9);
+            Label114514.Name = "Label114514";
+            Label114514.Size = new Size(95, 20);
+            Label114514.TabIndex = 10;
+            Label114514.Text = "上一次使用IP:";
+            Label114514.Click += LatestIPLabel_Click;
+            // 
+            // BCtextBox1
+            // 
+            BCtextBox1.Location = new Point(513, 183);
+            BCtextBox1.Multiline = true;
+            BCtextBox1.Name = "BCtextBox1";
+            BCtextBox1.ReadOnly = true;
+            BCtextBox1.Size = new Size(279, 215);
+            BCtextBox1.TabIndex = 9;
+            BCtextBox1.TextChanged += BCtextBox1_TextChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Microsoft YaHei UI", 48F, FontStyle.Regular, GraphicsUnit.Point);
+            label1.Location = new Point(13, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(519, 83);
+            label1.TabIndex = 0;
+            label1.Text = "Jhacks-Nextgen";
+            // 
             // Inject
             // 
-            Inject.Controls.Add(BCtextBox1);
             Inject.Controls.Add(button1);
             Inject.Controls.Add(label3);
             Inject.Controls.Add(label2);
@@ -102,15 +227,7 @@
             Inject.TabIndex = 0;
             Inject.Text = "注入";
             Inject.UseVisualStyleBackColor = true;
-            // 
-            // BCtextBox1
-            // 
-            BCtextBox1.Location = new Point(419, 142);
-            BCtextBox1.Multiline = true;
-            BCtextBox1.Name = "BCtextBox1";
-            BCtextBox1.ReadOnly = true;
-            BCtextBox1.Size = new Size(348, 187);
-            BCtextBox1.TabIndex = 8;
+            Inject.Click += Inject_Click;
             // 
             // button1
             // 
@@ -187,9 +304,7 @@
             // 
             // Settings
             // 
-            Settings.Controls.Add(button6);
-            Settings.Controls.Add(button3);
-            Settings.Controls.Add(button5);
+            Settings.Controls.Add(label6);
             Settings.Location = new Point(4, 26);
             Settings.Name = "Settings";
             Settings.Padding = new Padding(3);
@@ -198,38 +313,15 @@
             Settings.Text = "设置";
             Settings.UseVisualStyleBackColor = true;
             // 
-            // button6
+            // label6
             // 
-            button6.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            button6.Location = new Point(272, 6);
-            button6.Name = "button6";
-            button6.Size = new Size(253, 71);
-            button6.TabIndex = 2;
-            button6.Text = "获取QQ号（测试）";
-            button6.UseVisualStyleBackColor = true;
-            button6.Click += button6_Click;
-            // 
-            // button3
-            // 
-            button3.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            button3.Location = new Point(13, 6);
-            button3.Name = "button3";
-            button3.Size = new Size(253, 71);
-            button3.TabIndex = 0;
-            button3.Text = "显示开发控制台";
-            button3.UseVisualStyleBackColor = true;
-            button3.Click += button3_Click;
-            // 
-            // button5
-            // 
-            button5.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
-            button5.Location = new Point(13, 6);
-            button5.Name = "button5";
-            button5.Size = new Size(253, 71);
-            button5.TabIndex = 1;
-            button5.Text = "隐藏开发控制台";
-            button5.UseVisualStyleBackColor = true;
-            button5.Click += button5_Click;
+            label6.AutoSize = true;
+            label6.Font = new Font("Microsoft YaHei UI", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            label6.Location = new Point(227, 119);
+            label6.Name = "label6";
+            label6.Size = new Size(340, 124);
+            label6.TabIndex = 0;
+            label6.Text = "未完成";
             // 
             // Tools
             // 
@@ -243,7 +335,7 @@
             // 
             // tabControl2
             // 
-            tabControl2.Controls.Add(CPSTester);
+            tabControl2.Controls.Add(ABCD);
             tabControl2.Controls.Add(more);
             tabControl2.Location = new Point(0, 3);
             tabControl2.Name = "tabControl2";
@@ -251,77 +343,71 @@
             tabControl2.Size = new Size(795, 420);
             tabControl2.TabIndex = 0;
             // 
-            // CPSTester
+            // ABCD
             // 
-            CPSTester.Controls.Add(clicklabel);
-            CPSTester.Controls.Add(timelabel);
-            CPSTester.Controls.Add(TimecomboBox);
-            CPSTester.Controls.Add(ModeComboBox);
-            CPSTester.Controls.Add(CPStestbtn);
-            CPSTester.Controls.Add(LogListBox);
-            CPSTester.Location = new Point(4, 26);
-            CPSTester.Name = "CPSTester";
-            CPSTester.Padding = new Padding(3);
-            CPSTester.Size = new Size(787, 390);
-            CPSTester.TabIndex = 0;
-            CPSTester.Text = "CPSTester";
-            CPSTester.UseVisualStyleBackColor = true;
+            ABCD.Controls.Add(button7);
+            ABCD.Controls.Add(textBox1);
+            ABCD.Controls.Add(button6);
+            ABCD.Controls.Add(button3);
+            ABCD.Controls.Add(button5);
+            ABCD.Location = new Point(4, 26);
+            ABCD.Name = "ABCD";
+            ABCD.Padding = new Padding(3);
+            ABCD.Size = new Size(787, 390);
+            ABCD.TabIndex = 0;
+            ABCD.Text = "114514";
+            ABCD.UseVisualStyleBackColor = true;
             // 
-            // clicklabel
+            // button7
             // 
-            clicklabel.AutoSize = true;
-            clicklabel.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            clicklabel.Location = new Point(335, 30);
-            clicklabel.Name = "clicklabel";
-            clicklabel.Size = new Size(111, 41);
-            clicklabel.TabIndex = 5;
-            clicklabel.Text = "label7";
+            button7.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button7.Location = new Point(267, 160);
+            button7.Name = "button7";
+            button7.Size = new Size(253, 71);
+            button7.TabIndex = 7;
+            button7.Text = "模拟报错";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
-            // timelabel
+            // textBox1
             // 
-            timelabel.AutoSize = true;
-            timelabel.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            timelabel.Location = new Point(32, 30);
-            timelabel.Name = "timelabel";
-            timelabel.Size = new Size(111, 41);
-            timelabel.TabIndex = 4;
-            timelabel.Text = "label6";
+            textBox1.Location = new Point(50, 106);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(676, 23);
+            textBox1.TabIndex = 6;
             // 
-            // TimecomboBox
+            // button6
             // 
-            TimecomboBox.FormattingEnabled = true;
-            TimecomboBox.Location = new Point(32, 88);
-            TimecomboBox.Name = "TimecomboBox";
-            TimecomboBox.Size = new Size(414, 25);
-            TimecomboBox.TabIndex = 3;
+            button6.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button6.Location = new Point(391, 6);
+            button6.Name = "button6";
+            button6.Size = new Size(253, 71);
+            button6.TabIndex = 5;
+            button6.Text = "获取QQ号";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click_1;
             // 
-            // ModeComboBox
+            // button3
             // 
-            ModeComboBox.FormattingEnabled = true;
-            ModeComboBox.Location = new Point(32, 127);
-            ModeComboBox.Name = "ModeComboBox";
-            ModeComboBox.Size = new Size(414, 25);
-            ModeComboBox.TabIndex = 2;
+            button3.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button3.Location = new Point(132, 6);
+            button3.Name = "button3";
+            button3.Size = new Size(253, 71);
+            button3.TabIndex = 3;
+            button3.Text = "显示开发控制台";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click_1;
             // 
-            // CPStestbtn
+            // button5
             // 
-            CPStestbtn.Font = new Font("Microsoft YaHei UI", 48F, FontStyle.Regular, GraphicsUnit.Point);
-            CPStestbtn.Location = new Point(32, 171);
-            CPStestbtn.Name = "CPStestbtn";
-            CPStestbtn.Size = new Size(414, 186);
-            CPStestbtn.TabIndex = 1;
-            CPStestbtn.Text = "button7";
-            CPStestbtn.UseVisualStyleBackColor = true;
-            // 
-            // LogListBox
-            // 
-            LogListBox.FormattingEnabled = true;
-            LogListBox.ItemHeight = 17;
-            LogListBox.Items.AddRange(new object[] { "时间记录：" });
-            LogListBox.Location = new Point(478, -1);
-            LogListBox.Name = "LogListBox";
-            LogListBox.Size = new Size(313, 395);
-            LogListBox.TabIndex = 0;
+            button5.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            button5.Location = new Point(132, 6);
+            button5.Name = "button5";
+            button5.Size = new Size(253, 71);
+            button5.TabIndex = 4;
+            button5.Text = "隐藏开发控制台";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click_1;
             // 
             // more
             // 
@@ -379,26 +465,6 @@
             openFileDialog1.FileName = "openFileDialog1";
             openFileDialog1.Filter = "DLL文件(*.dll)|*.dll";
             // 
-            // Home
-            // 
-            Home.Controls.Add(label1);
-            Home.Location = new Point(4, 26);
-            Home.Name = "Home";
-            Home.Size = new Size(795, 419);
-            Home.TabIndex = 4;
-            Home.Text = "主页";
-            Home.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Microsoft YaHei UI", 48F, FontStyle.Regular, GraphicsUnit.Point);
-            label1.Location = new Point(15, 11);
-            label1.Name = "label1";
-            label1.Size = new Size(219, 83);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -409,17 +475,21 @@
             Name = "MainForm";
             Text = "Jhacks-NextGen";
             tabControl1.ResumeLayout(false);
+            Home.ResumeLayout(false);
+            Home.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             Inject.ResumeLayout(false);
             Inject.PerformLayout();
             Settings.ResumeLayout(false);
+            Settings.PerformLayout();
             Tools.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
-            CPSTester.ResumeLayout(false);
-            CPSTester.PerformLayout();
+            ABCD.ResumeLayout(false);
+            ABCD.PerformLayout();
             About.ResumeLayout(false);
             About.PerformLayout();
-            Home.ResumeLayout(false);
-            Home.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -437,25 +507,30 @@
         private ComboBox jinchenBox;
         private OpenFileDialog openFileDialog1;
         private Button button1;
-        private TextBox BCtextBox1;
-        private Button button3;
         private Label label4;
         private Button button4;
         private Label label5;
-        private Button button5;
         private TabPage Tools;
         private TabControl tabControl2;
-        private TabPage CPSTester;
-        private ListBox LogListBox;
+        private TabPage ABCD;
         private TabPage more;
-        private Button button6;
-        private Label clicklabel;
-        private Label timelabel;
-        private ComboBox TimecomboBox;
-        private ComboBox ModeComboBox;
-        private Button CPStestbtn;
         private System.Windows.Forms.Timer timer1;
         private TabPage Home;
         private Label label1;
+        private Button button6;
+        private Button button3;
+        private Button button5;
+        private TextBox BCtextBox1;
+        private Label Label114514;
+        private TextBox textBox1;
+        private Button button7;
+        private Label label6;
+        private Panel panel1;
+        private Label LatestIPLabel;
+        private Label QQLabel;
+        private Label label8;
+        private Label ThisIPLable;
+        private Label Label7;
+        private PictureBox pictureBox1;
     }
 }

@@ -50,22 +50,24 @@ namespace Jhacks_NextGen
             WindowsPrincipal principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
-        public static async Task<string> GetIP()
+        public static string GetPublicIpAddress()
+    {
+        try
         {
-            try
+            string externalIP;
+
+            using (WebClient client = new WebClient())
             {
-                using (var client = new HttpClient())
-                {
-                    string ip = await client.GetStringAsync("https://api.ipify.org");
-                    return ip.Trim();
-                }
+                externalIP = client.DownloadString("https://api.ipify.org");
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Failed to retrieve public IP address: " + ex.Message);
-            }
-            return string.Empty;
+
+            return externalIP;
         }
+        catch (Exception ex)
+        {
+            throw new Exception($"获取公网IP地址时出现错误: {ex.Message}");
+        }
+    }
      
     }
 

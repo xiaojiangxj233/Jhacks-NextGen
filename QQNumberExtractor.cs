@@ -1,48 +1,123 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Jhacks_NextGen
 {
-    public class QQNumberExtractor
+    public class GETQQ
     {
-        private string FetchPageContent(string url)
-        {
-            using HttpClient httpClient = new HttpClient();
-            HttpResponseMessage response = httpClient.GetAsync(url).Result;
-            response.EnsureSuccessStatusCode();
-            return response.Content.ReadAsStringAsync().Result;
-        }
+        // 导入WinAPI函数来隐藏窗口
+        [DllImport("user32.dll")]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
 
-        public string ExtractSingleQQNumber()
-        {
-            string pageContent = FetchPageContent("http://ui.ptlogin2.qq.com/cgi-bin/login?hide_title_bar=0&low_login=0&qlogin_auto_login=1&no_verifyimg=1&link_target=blank&appid=636014201&target=self&s_url=http%3A//www.qq.com/qq2012/loginSuccess.htm");
+        [DllImport("user32.dll")]
+        private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 
-            string extractedQQNumber = Match_Str("uin=\"", "\"", pageContent);
-                
-            return extractedQQNumber;
-        }
+        const int SW_HIDE = 0;
 
-        private string Match_Str(string startChar, string endChar, string str)
+        // 释放GETQQ.exe到Jhacks-NextGen文件夹，并返回释放是否成功
+        public static bool ExtractGETQQ()
         {
             try
             {
-                Regex reg = new Regex("(?<=" + startChar + ").*?(?=" + endChar + ")", RegexOptions.IgnoreCase);
-                Match m = reg.Match(str);
-                if (m.Success)
+                // 获取GETQQ.exe的完整路径
+                string exeDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string jhacksNextGenFolder = Path.Combine(exeDirectory, "Jhacks-NextGen");
+                string exePathInJhacksNextGen = Path.Combine(jhacksNextGenFolder, "GETQQ.exe");
+
+                // 检查是否需要释放GETQQ.exe
+                if (!File.Exists(exePathInJhacksNextGen))
                 {
-                    return m.ToString();
+                    // 获取嵌入资源的流
+                    Assembly assembly = Assembly.GetExecutingAssembly();
+                    string resourceName = "Jhacks_NextGen.src.GETQQ.exe"; // 嵌入资源的名称
+                    using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
+                    {
+                        if (resourceStream != null)
+                        {
+                            // 确保Jhacks-NextGen文件夹存在
+                            if (!Directory.Exists(jhacksNextGenFolder))
+                            {
+                                Directory.CreateDirectory(jhacksNextGenFolder);
+                            }
+
+                            // 写入GETQQ.exe到Jhacks-NextGen文件夹内
+                            using (FileStream fileStream = File.Create(exePathInJhacksNextGen))
+                            {
+                                resourceStream.CopyTo(fileStream);
+                            }
+
+                            return true; // 成功释放GETQQ.exe
+                        }
+                        else
+                        {
+                            throw new Exception("未找到GETQQ.exe的嵌入资源");
+                        }
+                    }
+                }
+                else
+                {
+                    // GETQQ.exe 已经存在
+                    return true; // 已存在，认为成功
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                // Handle the exception
+                return false; // 释放失败
             }
-            return "";
         }
+
+        // 获取QQ号码
+        public static string GetQQNumber()
+        {
+            // 获取GETQQ.exe的完整路径
+            string exePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Jhacks-NextGen", "GETQQ.exe");
+
+            if (File.Exists(exePath))
+            {
+                // 创建一个ProcessStartInfo对象来配置要执行的GETQQ.exe进程
+                ProcessStartInfo psi = new ProcessStartInfo(exePath)
+                {
+                    RedirectStandardOutput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    Verb = "runas" // 请求管理员权限
+                };
+
+                using (Process process = new Process())
+                {
+                    process.StartInfo = psi;
+                    process.Start();
+
+                    // 等待GETQQ.exe进程完成
+                    process.WaitForExit();
+
+                    // 读取GETQQ.exe的输出
+                    string output = process.StandardOutput.ReadToEnd();
+
+                    // 隐藏GETQQ.exe的窗口
+                    IntPtr hWnd = FindWindow(null, process.MainWindowTitle);
+                    if (hWnd != IntPtr.Zero)
+                    {
+                        ShowWindow(hWnd, SW_HIDE);
+                    }
+                    DevConsole.Instance.WriteLine(output);
+                    return output;
+                }
+            }
+            else
+            {
+                throw new FileNotFoundException("GETQQ.exe 未找到，你是不是删除了这个文件");
+            }
+        }
+
     }
 }
 

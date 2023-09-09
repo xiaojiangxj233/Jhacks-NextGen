@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.18362.0</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <RootNamespace>Jhacks_NextGen</RootNamespace>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
@@ -10,7 +10,6 @@
     <Platforms>AnyCPU;x64</Platforms>
     <ErrorReport>none</ErrorReport>
     <UseWPF>False</UseWPF>
-    <SupportedOSPlatformVersion>10.0.18362.0</SupportedOSPlatformVersion>
     <StartupObject>Jhacks_NextGen.Program</StartupObject>
     <ApplicationIcon>Fav.ico</ApplicationIcon>
   </PropertyGroup>
@@ -32,6 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="src\GETQQ.exe" />
     <None Remove="vape.zip" />
     <None Remove="zelix.dll" />
   </ItemGroup>
@@ -41,6 +41,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="src\GETQQ.exe" />
     <EmbeddedResource Include="src\vape.zip" />
     <EmbeddedResource Include="src\zelix.dll" />
   </ItemGroup>
@@ -48,6 +49,7 @@
   <ItemGroup>
     <PackageReference Include="HtmlAgilityPack" Version="1.11.52" />
     <PackageReference Include="LibSassBuilder" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Radzen.Blazor" Version="4.15.7" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.3.4" />
     <PackageReference Include="System.Management" Version="7.0.2" />

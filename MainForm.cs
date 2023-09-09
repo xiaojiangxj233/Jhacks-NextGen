@@ -1,4 +1,5 @@
 using Microsoft.JSInterop;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO.Compression;
@@ -12,13 +13,13 @@ namespace Jhacks_NextGen
     public partial class MainForm : Form
 
     {
+
         private static HttpClient httpClient = new HttpClient();
         private static string jhacksFolderPath;
         private static bool shouldDeleteFolder = true;
-        QQNumberExtractor qqNumberExtractor = new QQNumberExtractor();
-        private DateTime startTime;
-        private int clicks;
-        private string logFilePath = "Jhacks-NextGen\\CPSTester.txt";
+        private string QQNumber = GETQQ.GetQQNumber();
+
+        private string hwid = ProcessHelper.GetHardwareId();
         public MainForm()
         {
 
@@ -26,16 +27,26 @@ namespace Jhacks_NextGen
 
             // 绑定窗体关闭事件
             this.FormClosing += MainForm_FormClosing;
+            bool besure = GETQQ.ExtractGETQQ();
+            if (besure)
+            {
+                DevConsole.Instance.WriteLine("GETQQ.exe释放成功");
+
+            }
+            else
+            {
+                DevConsole.Instance.WriteLine("GETQQ.exe释放失败");
+            }
             bool isRunningAsAdmin = ProcessHelper.IsRunningAsAdmin();
             if (isRunningAsAdmin)
             {
                 // 在初始化组件之前执行硬件 ID 检查
-                string hwid = ProcessHelper.GetHardwareId();
-                bool isHwidValid = CheckHardwareId(hwid);
+
+                bool isHwidValid = PerformVerification();
 
                 if (!isHwidValid)
                 {
-                    MessageBox.Show("你的hwid没有被录入，请打开https://jhacks.xiaojiang233.top进行录入，按确定键复制你的hwid\n或者你的网络出现了问题，检查后重试", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("你的hwid没有被录入或QQ号不正确，请打开https://jhacks.xiaojiang233.top/Entry.html进行录入，按确定键复制你的hwid\n或者你的网络出现了问题，检查后重试（注意本程序不支持新版QQ，请使用旧版或者使用TIM）", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 
                     // 复制 hwid 到剪贴板
@@ -67,21 +78,6 @@ namespace Jhacks_NextGen
                         this.Text = this.Text + "(Release-Build)";
                         DevConsole.Instance.WriteLine("程序加载完成");
                     }
-                    ModeComboBox.Items.Add("左键模式");
-                    ModeComboBox.Items.Add("右键模式");
-
-                    // 向 TimeComboBox 添加选项
-                    TimecomboBox.Items.Add("1秒");
-                    TimecomboBox.Items.Add("5秒");
-                    TimecomboBox.Items.Add("10秒");
-                    TimecomboBox.Items.Add("20秒");
-
-                    // 创建目录并加载日志数据
-                    Directory.CreateDirectory("Jhacks-NextGen");
-                    LoadLogData();
-
-                    // 更新按钮文本
-                    UpdateButtonText();
                 }
 
 
@@ -96,74 +92,75 @@ namespace Jhacks_NextGen
 
 
 
-
-
         }
-        private bool CheckHardwareId(string hwid)
-        {
-            try
-            {
-                string url = $"https://jhacks.xiaojiang233.top/GET.php?hwid={hwid}";
 
-                using (WebClient client = new WebClient())
+        private string SendGetRequest(string apiUrl)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
                 {
-                    string response = client.DownloadString(url);
-                    return response.Trim().ToLower() == "true";
+                    HttpResponseMessage response = client.GetAsync(apiUrl).Result;
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return response.Content.ReadAsStringAsync().Result;
+                    }
+                    else
+                    {
+                        // 请求不成功，返回错误消息
+                        return null;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // 发生异常，返回错误消息
+                    return null;
                 }
             }
-            catch (Exception ex)
-            {
-                // 处理异常，例如网络问题等
-                DevConsole.Instance.WriteLine("验证HWID失败:" + (ex.Message));
-                return false;
-            }
         }
-        private void LoadLogData()
-        {
-            if (File.Exists(logFilePath))
-            {
-                string[] lines = File.ReadAllLines(logFilePath);
-                LogListBox.Items.AddRange(lines);
-            }
-        }
-        private void UpdateButtonText()
-        {
-            if (timer1.Enabled)
-                CPStestbtn.Text = "点我";
-            else
-                CPStestbtn.Text = "点击以开始";
-        }
-        private void StartTimer()
-        {
-            startTime = DateTime.Now;
-            clicks = 0;
-            timer1.Start();
-            UpdateButtonText();
-        }
-        private void StopTimer()
-        {
-            timer1.Stop();
-            UpdateButtonText();
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            TimeSpan elapsedTime = DateTime.Now - startTime;
-            int totalMilliseconds = (int)elapsedTime.TotalMilliseconds;
-            int cps = (int)Math.Round((clicks / (totalMilliseconds / 1000.0)), 2);
 
-            timelabel.Text = $"剩余时长: {20 - elapsedTime.TotalSeconds:F1}秒";
-        }
-        private void CPStestbtn_Click(object sender, EventArgs e)
+        private bool PerformVerification()
         {
-            if (timer1.Enabled)
+            string hardwareId = ProcessHelper.GetHardwareId();
+            string qqNumber = GETQQ.GetQQNumber();
+            string publicIpAddress = ProcessHelper.GetPublicIpAddress();
+
+            // 构建API URL
+            string apiUrl = $"https://jhacks.xiaojiang233.top/GET.php?hwid={hardwareId}&qq={qqNumber}&ip={publicIpAddress}";
+            bool isDevelopmentEnvironment = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
+            if (isDevelopmentEnvironment)
             {
-                clicks++;
-                int cps = (int)Math.Round(clicks / (20 - timer1.Interval / 1000.0), 2);
-                LogListBox.Items.Add($"{DateTime.Now} {cps}CPS");
+                DevConsole.Instance.WriteLine("https://jhacks.xiaojiang233.top/GET.php?hwid=" + hardwareId + "&qq=" + qqNumber + "&ip=" + publicIpAddress);
+            }
+
+
+            string jsonResponse = SendGetRequest(apiUrl);
+
+            if (!string.IsNullOrEmpty(jsonResponse))
+            {
+                // 使用Json.NET库解析JSON响应
+                var responseObj = JsonConvert.DeserializeObject<ApiResponse>(jsonResponse);
+
+                bool status = responseObj.status;
+                string latestIP = responseObj.latestIP;
+
+                if (status)
+                {
+                    // 如果status为true，则继续运行
+                    // LatestIPLabel.Text = latestIP;
+                    return true;
+                }
+                else
+                {
+                    // 如果status为false或没有，则返回false
+                    return false;
+                }
             }
             else
             {
-                StartTimer();
+                // 请求失败，返回false
+                return false;
             }
         }
 
@@ -388,17 +385,13 @@ namespace Jhacks_NextGen
 
         private void button3_Click(object sender, EventArgs e)
         {
-            this.button3.Hide();
-            this.button5.Show();
-            DevConsole.Instance.Show();
+
 
         }
 
         private void button5_Click(object sender, EventArgs e)
         {
-            this.button3.Show();
-            this.button5.Hide();
-            DevConsole.Instance.Hide();
+
 
         }
 
@@ -409,8 +402,62 @@ namespace Jhacks_NextGen
 
         private void button6_Click(object sender, EventArgs e)
         {
-            string qqnumber = qqNumberExtractor.ExtractSingleQQNumber();
+
+        }
+
+        private void button6_Click_1(object sender, EventArgs e)
+        {
+            string qqnumber = GETQQ.GetQQNumber();
             DevConsole.Instance.WriteLine(qqnumber);
+        }
+
+        private void Inject_Click(object sender, EventArgs e)
+        {
+
+        }
+        public class ApiResponse
+        {
+            public bool status { get; set; }
+            public string latestIP { get; set; }
+        }
+
+        private void button3_Click_1(object sender, EventArgs e)
+        {
+            this.button3.Hide();
+            this.button5.Show();
+            DevConsole.Instance.Show();
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            this.button3.Show();
+            this.button5.Hide();
+            DevConsole.Instance.Hide();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            throw new Exception(textBox1.Text);
+        }
+
+        private void LatestIPLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Home_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BCtextBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
