@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Management;
 using System.Net;
+using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,24 +52,26 @@ namespace Jhacks_NextGen
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
         public static string GetPublicIpAddress()
-    {
-        try
         {
-            string externalIP;
-
-            using (WebClient client = new WebClient())
+            try
             {
-                externalIP = client.DownloadString("https://api.ipify.org");
+                string externalIP;
+
+                using (WebClient client = new WebClient())
+                {
+                    externalIP = client.DownloadString("http://ip.42.pl/raw");
+                }
+
+                return externalIP;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"获取公网IP地址时出现错误: {ex.Message}");
+                return "None";
             }
 
-            return externalIP;
-        }
-        catch (Exception ex)
-        {
-            throw new Exception($"获取公网IP地址时出现错误: {ex.Message}");
-        }
-    }
-     
-    }
 
+        }
+
+    }
 }

@@ -15,7 +15,7 @@ namespace Jhacks_NextGen
             bool aaa = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
             if (aaa)
             {
-                DevConsole.Instance.Show(); // Show DevConsole window
+                DevConsole.Instance.Show(); 
                 
             }
             LoadForm.Instance.Show();

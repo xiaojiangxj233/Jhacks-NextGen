@@ -32,7 +32,14 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             tabControl1 = new TabControl();
             Home = new TabPage();
-            pictureBox1 = new PictureBox();
+            button11 = new Button();
+            panel2 = new Panel();
+            localversion = new Label();
+            webversion = new Label();
+            label16 = new Label();
+            label17 = new Label();
+            button9 = new Button();
+            GETHWID = new Button();
             panel1 = new Panel();
             ThisIPLable = new Label();
             QQLabel = new Label();
@@ -40,7 +47,29 @@
             label8 = new Label();
             BCtextBox1 = new TextBox();
             label1 = new Label();
+            pictureBox1 = new PictureBox();
             Inject = new TabPage();
+            tabControl3 = new TabControl();
+            MOD = new TabPage();
+            label13 = new Label();
+            button10 = new Button();
+            label12 = new Label();
+            label11 = new Label();
+            button8 = new Button();
+            MCLTextBox = new TextBox();
+            label10 = new Label();
+            liulanModbtn = new Button();
+            ModTextBox = new TextBox();
+            label9 = new Label();
+            VAPE = new TabPage();
+            button14 = new Button();
+            button13 = new Button();
+            VAPUBtn = new Button();
+            label15 = new Label();
+            label14 = new Label();
+            liulanjdkbtn = new Button();
+            textBox2 = new TextBox();
+            DLL = new TabPage();
             button1 = new Button();
             label3 = new Label();
             label2 = new Label();
@@ -65,11 +94,17 @@
             label4 = new Label();
             openFileDialog1 = new OpenFileDialog();
             timer1 = new System.Windows.Forms.Timer(components);
+            folderBrowserDialog1 = new FolderBrowserDialog();
             tabControl1.SuspendLayout();
             Home.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel2.SuspendLayout();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             Inject.SuspendLayout();
+            tabControl3.SuspendLayout();
+            MOD.SuspendLayout();
+            VAPE.SuspendLayout();
+            DLL.SuspendLayout();
             Settings.SuspendLayout();
             Tools.SuspendLayout();
             tabControl2.SuspendLayout();
@@ -92,10 +127,14 @@
             // 
             // Home
             // 
-            Home.Controls.Add(pictureBox1);
+            Home.Controls.Add(button11);
+            Home.Controls.Add(panel2);
+            Home.Controls.Add(button9);
+            Home.Controls.Add(GETHWID);
             Home.Controls.Add(panel1);
             Home.Controls.Add(BCtextBox1);
             Home.Controls.Add(label1);
+            Home.Controls.Add(pictureBox1);
             Home.Location = new Point(4, 26);
             Home.Name = "Home";
             Home.Size = new Size(795, 419);
@@ -104,26 +143,98 @@
             Home.UseVisualStyleBackColor = true;
             Home.Click += Home_Click;
             // 
-            // pictureBox1
+            // button11
             // 
-            pictureBox1.ImageLocation = "https://t.mwm.moe/moe";
-            pictureBox1.Location = new Point(23, 183);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(407, 215);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 14;
-            pictureBox1.TabStop = false;
-            pictureBox1.Click += pictureBox1_Click;
+            button11.Location = new Point(660, 108);
+            button11.Name = "button11";
+            button11.Size = new Size(121, 38);
+            button11.TabIndex = 15;
+            button11.Text = "检查更新";
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
+            // 
+            // panel2
+            // 
+            panel2.BorderStyle = BorderStyle.FixedSingle;
+            panel2.Controls.Add(localversion);
+            panel2.Controls.Add(webversion);
+            panel2.Controls.Add(label16);
+            panel2.Controls.Add(label17);
+            panel2.Location = new Point(364, 89);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(290, 72);
+            panel2.TabIndex = 14;
+            // 
+            // localversion
+            // 
+            localversion.AutoSize = true;
+            localversion.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            localversion.Location = new Point(136, 9);
+            localversion.Name = "localversion";
+            localversion.Size = new Size(57, 20);
+            localversion.TabIndex = 13;
+            localversion.Text = "114514";
+            // 
+            // webversion
+            // 
+            webversion.AutoSize = true;
+            webversion.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            webversion.Location = new Point(105, 35);
+            webversion.Name = "webversion";
+            webversion.Size = new Size(78, 25);
+            webversion.TabIndex = 13;
+            webversion.Text = "114514";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            label16.Location = new Point(3, 9);
+            label16.Name = "label16";
+            label16.Size = new Size(135, 20);
+            label16.TabIndex = 12;
+            label16.Text = "当前你使用的版本：";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
+            label17.Location = new Point(3, 35);
+            label17.Name = "label17";
+            label17.Size = new Size(107, 25);
+            label17.TabIndex = 12;
+            label17.Text = "最新版本：";
+            // 
+            // button9
+            // 
+            button9.Location = new Point(208, 108);
+            button9.Name = "button9";
+            button9.Size = new Size(133, 45);
+            button9.TabIndex = 14;
+            button9.Text = "打开临时目录";
+            button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
+            // 
+            // GETHWID
+            // 
+            GETHWID.Location = new Point(39, 108);
+            GETHWID.Name = "GETHWID";
+            GETHWID.Size = new Size(133, 45);
+            GETHWID.TabIndex = 13;
+            GETHWID.Text = "获取HWID";
+            GETHWID.UseVisualStyleBackColor = true;
+            GETHWID.Click += GETHWID_Click;
             // 
             // panel1
             // 
+            panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(ThisIPLable);
             panel1.Controls.Add(QQLabel);
             panel1.Controls.Add(Label7);
             panel1.Controls.Add(label8);
             panel1.Location = new Point(523, 11);
             panel1.Name = "panel1";
-            panel1.Size = new Size(272, 71);
+            panel1.Size = new Size(272, 72);
             panel1.TabIndex = 11;
             // 
             // ThisIPLable
@@ -140,7 +251,7 @@
             // 
             QQLabel.AutoSize = true;
             QQLabel.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            QQLabel.Location = new Point(115, 35);
+            QQLabel.Location = new Point(115, 34);
             QQLabel.Name = "QQLabel";
             QQLabel.Size = new Size(78, 25);
             QQLabel.TabIndex = 13;
@@ -160,7 +271,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label8.Location = new Point(3, 35);
+            label8.Location = new Point(3, 34);
             label8.Name = "label8";
             label8.Size = new Size(118, 25);
             label8.TabIndex = 12;
@@ -168,17 +279,19 @@
             // 
             // BCtextBox1
             // 
-            BCtextBox1.Location = new Point(484, 183);
+            BCtextBox1.Location = new Point(484, 196);
             BCtextBox1.Multiline = true;
             BCtextBox1.Name = "BCtextBox1";
             BCtextBox1.ReadOnly = true;
             BCtextBox1.Size = new Size(300, 215);
             BCtextBox1.TabIndex = 9;
+            BCtextBox1.Text = "公告由于一些原因去世了...\r\n将在下一个版本修复";
             BCtextBox1.TextChanged += BCtextBox1_TextChanged;
             // 
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
             label1.Font = new Font("Microsoft YaHei UI", 48F, FontStyle.Regular, GraphicsUnit.Point);
             label1.Location = new Point(13, 0);
             label1.Name = "label1";
@@ -186,15 +299,21 @@
             label1.TabIndex = 0;
             label1.Text = "Jhacks-Nextgen";
             // 
+            // pictureBox1
+            // 
+            pictureBox1.ErrorImage = (Image)resources.GetObject("pictureBox1.ErrorImage");
+            pictureBox1.ImageLocation = "https://t.mwm.moe/moe";
+            pictureBox1.InitialImage = (Image)resources.GetObject("pictureBox1.InitialImage");
+            pictureBox1.Location = new Point(41, 196);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(394, 215);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 12;
+            pictureBox1.TabStop = false;
+            // 
             // Inject
             // 
-            Inject.Controls.Add(button1);
-            Inject.Controls.Add(label3);
-            Inject.Controls.Add(label2);
-            Inject.Controls.Add(button2);
-            Inject.Controls.Add(jinchenBox);
-            Inject.Controls.Add(SelectDLLBtn);
-            Inject.Controls.Add(SelectBox);
+            Inject.Controls.Add(tabControl3);
             Inject.Location = new Point(4, 26);
             Inject.Name = "Inject";
             Inject.Padding = new Padding(3);
@@ -204,78 +323,298 @@
             Inject.UseVisualStyleBackColor = true;
             Inject.Click += Inject_Click;
             // 
+            // tabControl3
+            // 
+            tabControl3.Controls.Add(MOD);
+            tabControl3.Controls.Add(VAPE);
+            tabControl3.Controls.Add(DLL);
+            tabControl3.Location = new Point(2, 1);
+            tabControl3.Name = "tabControl3";
+            tabControl3.SelectedIndex = 0;
+            tabControl3.Size = new Size(792, 417);
+            tabControl3.TabIndex = 0;
+            // 
+            // MOD
+            // 
+            MOD.Controls.Add(label13);
+            MOD.Controls.Add(button10);
+            MOD.Controls.Add(label12);
+            MOD.Controls.Add(label11);
+            MOD.Controls.Add(button8);
+            MOD.Controls.Add(MCLTextBox);
+            MOD.Controls.Add(label10);
+            MOD.Controls.Add(liulanModbtn);
+            MOD.Controls.Add(ModTextBox);
+            MOD.Controls.Add(label9);
+            MOD.Location = new Point(4, 26);
+            MOD.Name = "MOD";
+            MOD.Padding = new Padding(3);
+            MOD.Size = new Size(784, 387);
+            MOD.TabIndex = 1;
+            MOD.Text = "模组注入";
+            MOD.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label13.Location = new Point(121, 101);
+            label13.Name = "label13";
+            label13.Size = new Size(533, 21);
+            label13.TabIndex = 9;
+            label13.Text = "你只需要选择MCLDownload的文件夹位置就行了，不要选到mods文件夹";
+            // 
+            // button10
+            // 
+            button10.Font = new Font("Microsoft YaHei UI", 72F, FontStyle.Regular, GraphicsUnit.Point);
+            button10.Location = new Point(90, 201);
+            button10.Name = "button10";
+            button10.Size = new Size(618, 155);
+            button10.TabIndex = 8;
+            button10.Text = "注入";
+            button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Microsoft YaHei UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label12.Location = new Point(180, 160);
+            label12.Name = "label12";
+            label12.Size = new Size(400, 38);
+            label12.TabIndex = 7;
+            label12.Text = "本程序将会自动对jar进行改名";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Microsoft YaHei UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label11.Location = new Point(72, 122);
+            label11.Name = "label11";
+            label11.Size = new Size(654, 38);
+            label11.TabIndex = 6;
+            label11.Text = "注意，请在\"游戏启动中\"大约40%的时候点击注入";
+            // 
+            // button8
+            // 
+            button8.Location = new Point(689, 45);
+            button8.Name = "button8";
+            button8.Size = new Size(89, 32);
+            button8.TabIndex = 5;
+            button8.Text = "浏览";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
+            // MCLTextBox
+            // 
+            MCLTextBox.Location = new Point(264, 50);
+            MCLTextBox.Name = "MCLTextBox";
+            MCLTextBox.Size = new Size(422, 23);
+            MCLTextBox.TabIndex = 4;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label10.Location = new Point(7, 46);
+            label10.Name = "label10";
+            label10.Size = new Size(273, 27);
+            label10.TabIndex = 3;
+            label10.Text = "MCLDownload文件夹位置：";
+            // 
+            // liulanModbtn
+            // 
+            liulanModbtn.Location = new Point(689, 15);
+            liulanModbtn.Name = "liulanModbtn";
+            liulanModbtn.Size = new Size(89, 32);
+            liulanModbtn.TabIndex = 2;
+            liulanModbtn.Text = "浏览";
+            liulanModbtn.UseVisualStyleBackColor = true;
+            liulanModbtn.Click += liulanModbtn_Click;
+            // 
+            // ModTextBox
+            // 
+            ModTextBox.Location = new Point(197, 20);
+            ModTextBox.Name = "ModTextBox";
+            ModTextBox.Size = new Size(489, 23);
+            ModTextBox.TabIndex = 1;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label9.Location = new Point(7, 16);
+            label9.Name = "label9";
+            label9.Size = new Size(192, 27);
+            label9.TabIndex = 0;
+            label9.Text = "要注入的模组位置：";
+            // 
+            // VAPE
+            // 
+            VAPE.Controls.Add(button14);
+            VAPE.Controls.Add(button13);
+            VAPE.Controls.Add(VAPUBtn);
+            VAPE.Controls.Add(label15);
+            VAPE.Controls.Add(label14);
+            VAPE.Controls.Add(liulanjdkbtn);
+            VAPE.Controls.Add(textBox2);
+            VAPE.Location = new Point(4, 26);
+            VAPE.Name = "VAPE";
+            VAPE.Size = new Size(784, 387);
+            VAPE.TabIndex = 2;
+            VAPE.Text = "注入维普";
+            VAPE.UseVisualStyleBackColor = true;
+            // 
+            // button14
+            // 
+            button14.Location = new Point(589, 48);
+            button14.Name = "button14";
+            button14.Size = new Size(188, 40);
+            button14.TabIndex = 6;
+            button14.Text = "从配置文件读取JDK路径";
+            button14.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            button13.Location = new Point(9, 48);
+            button13.Name = "button13";
+            button13.Size = new Size(188, 40);
+            button13.TabIndex = 5;
+            button13.Text = "将JDK路径保存到配置文件";
+            button13.UseVisualStyleBackColor = true;
+            button13.Click += button13_Click;
+            // 
+            // VAPUBtn
+            // 
+            VAPUBtn.Font = new Font("Microsoft YaHei UI", 99.75F, FontStyle.Regular, GraphicsUnit.Point);
+            VAPUBtn.Location = new Point(9, 94);
+            VAPUBtn.Name = "VAPUBtn";
+            VAPUBtn.Size = new Size(768, 288);
+            VAPUBtn.TabIndex = 4;
+            VAPUBtn.Text = "注入";
+            VAPUBtn.UseVisualStyleBackColor = true;
+            VAPUBtn.Click += VAPUBtn_Click;
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Microsoft YaHei UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            label15.Location = new Point(301, 29);
+            label15.Name = "label15";
+            label15.Size = new Size(175, 17);
+            label15.TabIndex = 3;
+            label15.Text = "请选择JDK17及以上版本的java";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(9, 9);
+            label14.Name = "label14";
+            label14.Size = new Size(66, 17);
+            label14.TabIndex = 2;
+            label14.Text = "JDK路径：";
+            // 
+            // liulanjdkbtn
+            // 
+            liulanjdkbtn.Location = new Point(661, 3);
+            liulanjdkbtn.Name = "liulanjdkbtn";
+            liulanjdkbtn.Size = new Size(117, 23);
+            liulanjdkbtn.TabIndex = 1;
+            liulanjdkbtn.Text = "浏览";
+            liulanjdkbtn.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(81, 3);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(563, 23);
+            textBox2.TabIndex = 0;
+            // 
+            // DLL
+            // 
+            DLL.Controls.Add(button1);
+            DLL.Controls.Add(label3);
+            DLL.Controls.Add(label2);
+            DLL.Controls.Add(button2);
+            DLL.Controls.Add(jinchenBox);
+            DLL.Controls.Add(SelectDLLBtn);
+            DLL.Controls.Add(SelectBox);
+            DLL.Location = new Point(4, 26);
+            DLL.Name = "DLL";
+            DLL.Padding = new Padding(3);
+            DLL.Size = new Size(784, 387);
+            DLL.TabIndex = 0;
+            DLL.Text = "DLL注入";
+            DLL.UseVisualStyleBackColor = true;
+            // 
             // button1
             // 
             button1.Font = new Font("Microsoft YaHei UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(51, 142);
+            button1.Location = new Point(225, 169);
             button1.Name = "button1";
             button1.Size = new Size(352, 189);
-            button1.TabIndex = 7;
+            button1.TabIndex = 14;
             button1.Text = "注入";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
-            label3.Location = new Point(14, 96);
+            label3.Location = new Point(23, 69);
             label3.Name = "label3";
             label3.Size = new Size(107, 20);
-            label3.TabIndex = 6;
+            label3.TabIndex = 13;
             label3.Text = "要注入的进程：";
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(10, 60);
+            label2.Location = new Point(19, 33);
             label2.Name = "label2";
             label2.Size = new Size(132, 20);
-            label2.TabIndex = 5;
+            label2.TabIndex = 12;
             label2.Text = "要注入的端或DLL：";
             // 
             // button2
             // 
-            button2.Location = new Point(663, 99);
+            button2.Location = new Point(672, 72);
             button2.Name = "button2";
             button2.Size = new Size(94, 29);
-            button2.TabIndex = 4;
+            button2.TabIndex = 11;
             button2.Text = "刷新";
             button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
             // 
             // jinchenBox
             // 
             jinchenBox.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             jinchenBox.FormattingEnabled = true;
-            jinchenBox.Location = new Point(148, 99);
+            jinchenBox.Location = new Point(157, 72);
             jinchenBox.Name = "jinchenBox";
             jinchenBox.Size = new Size(512, 29);
-            jinchenBox.TabIndex = 3;
+            jinchenBox.TabIndex = 10;
             jinchenBox.Text = "javaw";
             // 
             // SelectDLLBtn
             // 
-            SelectDLLBtn.Location = new Point(663, 56);
+            SelectDLLBtn.Location = new Point(672, 29);
             SelectDLLBtn.Name = "SelectDLLBtn";
             SelectDLLBtn.Size = new Size(94, 29);
-            SelectDLLBtn.TabIndex = 2;
+            SelectDLLBtn.TabIndex = 9;
             SelectDLLBtn.Text = "浏览";
             SelectDLLBtn.UseVisualStyleBackColor = true;
-            SelectDLLBtn.Click += SelectDLLBtn_Click;
             // 
             // SelectBox
             // 
             SelectBox.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             SelectBox.FormattingEnabled = true;
-            SelectBox.Items.AddRange(new object[] { "Zelix Cracked(1.12.2)", "Vape V4.10(1.8.9Vanila)" });
-            SelectBox.Location = new Point(148, 56);
+            SelectBox.Items.AddRange(new object[] { "Zelix Cracked(1.12.2)" });
+            SelectBox.Location = new Point(157, 29);
             SelectBox.Name = "SelectBox";
             SelectBox.Size = new Size(511, 29);
-            SelectBox.TabIndex = 1;
+            SelectBox.TabIndex = 8;
             SelectBox.Text = "Zelix Cracked(1.12.2)";
-            SelectBox.SelectedIndexChanged += SelectBox_SelectedIndexChanged;
             // 
             // Settings
             // 
@@ -454,11 +793,19 @@
             tabControl1.ResumeLayout(false);
             Home.ResumeLayout(false);
             Home.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             Inject.ResumeLayout(false);
-            Inject.PerformLayout();
+            tabControl3.ResumeLayout(false);
+            MOD.ResumeLayout(false);
+            MOD.PerformLayout();
+            VAPE.ResumeLayout(false);
+            VAPE.PerformLayout();
+            DLL.ResumeLayout(false);
+            DLL.PerformLayout();
             Settings.ResumeLayout(false);
             Settings.PerformLayout();
             Tools.ResumeLayout(false);
@@ -476,14 +823,7 @@
         private TabPage Inject;
         private TabPage Settings;
         private TabPage About;
-        private ComboBox SelectBox;
-        private Button SelectDLLBtn;
-        private Label label3;
-        private Label label2;
-        private Button button2;
-        private ComboBox jinchenBox;
         private OpenFileDialog openFileDialog1;
-        private Button button1;
         private Label label4;
         private Button button4;
         private Label label5;
@@ -506,6 +846,43 @@
         private Label label8;
         private Label ThisIPLable;
         private Label Label7;
+        private TabControl tabControl3;
+        private TabPage DLL;
+        private Button button1;
+        private Label label3;
+        private Label label2;
+        private Button button2;
+        private ComboBox jinchenBox;
+        private Button SelectDLLBtn;
+        private ComboBox SelectBox;
+        private TabPage MOD;
+        private Button button8;
+        private TextBox MCLTextBox;
+        private Label label10;
+        private Button liulanModbtn;
+        private TextBox ModTextBox;
+        private Label label9;
+        private Button GETHWID;
         private PictureBox pictureBox1;
+        private Button button9;
+        private Label label11;
+        private Button button10;
+        private Label label12;
+        private Label label13;
+        private FolderBrowserDialog folderBrowserDialog1;
+        private Button button11;
+        private Panel panel2;
+        private Label localversion;
+        private Label webversion;
+        private Label label16;
+        private Label label17;
+        private TabPage VAPE;
+        private Button VAPUBtn;
+        private Label label15;
+        private Label label14;
+        private Button liulanjdkbtn;
+        private TextBox textBox2;
+        private Button button13;
+        private Button button14;
     }
 }

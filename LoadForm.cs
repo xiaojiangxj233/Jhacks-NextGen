@@ -20,7 +20,7 @@ namespace Jhacks_NextGen
 
         private void LoadForm_Load(object sender, EventArgs e)
         {
-
+            CenterToScreen();
         }
         public static LoadForm Instance
         {
@@ -30,6 +30,11 @@ namespace Jhacks_NextGen
                     _instance = new LoadForm();
                 return _instance;
             }
+
+        }
+        public void message(string message)
+        {
+            label2.Text = message;
         }
     }
 }

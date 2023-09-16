@@ -1,4 +1,4 @@
-using Microsoft.JSInterop;
+ï»¿using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Drawing.Imaging;
@@ -20,55 +20,56 @@ namespace Jhacks_NextGen
         private static bool shouldDeleteFolder = true;
         private string QQNumber = GETQQ.GetQQNumber();
         private LoadForm lFrom;
+
         private string hwid = ProcessHelper.GetHardwareId();
         public MainForm()
         {
 
 
 
-            // °ó¶¨´°Ìå¹Ø±ÕÊÂ¼ş
+            // ç»‘å®šçª—ä½“å…³é—­äº‹ä»¶
             this.FormClosing += MainForm_FormClosing;
             bool besure = GETQQ.ExtractGETQQ();
             if (besure)
             {
-                DevConsole.Instance.WriteLine("GETQQ.exeÊÍ·Å³É¹¦");
+                DevConsole.Instance.WriteLine("GETQQ.exeé‡Šæ”¾æˆåŠŸ");
 
             }
             else
             {
-                DevConsole.Instance.WriteLine("GETQQ.exeÊÍ·ÅÊ§°Ü");
+                DevConsole.Instance.WriteLine("GETQQ.exeé‡Šæ”¾å¤±è´¥");
             }
             bool isRunningAsAdmin = ProcessHelper.IsRunningAsAdmin();
             if (isRunningAsAdmin)
-            {
-                // ÔÚ³õÊ¼»¯×é¼şÖ®Ç°Ö´ĞĞÓ²¼ş ID ¼ì²é
+            {   
+                // åœ¨åˆå§‹åŒ–ç»„ä»¶ä¹‹å‰æ‰§è¡Œç¡¬ä»¶ ID æ£€æŸ¥
 
                 bool isHwidValid = PerformVerification();
 
                 if (!isHwidValid)
                 {
-                    MessageBox.Show("ÄãµÄhwidÃ»ÓĞ±»Â¼Èë»òQQºÅ²»ÕıÈ·£¬Çë´ò¿ªhttps://jhacks.xiaojiang233.top/Entry.html½øĞĞÂ¼Èë£¬°´È·¶¨¼ü¸´ÖÆÄãµÄhwid\n»òÕßÄãµÄÍøÂç³öÏÖÁËÎÊÌâ£¬¼ì²éºóÖØÊÔ£¨×¢Òâ±¾³ÌĞò²»Ö§³ÖĞÂ°æQQ£¬ÇëÊ¹ÓÃ¾É°æ»òÕßÊ¹ÓÃTIM£©", "´íÎó", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("ä½ çš„hwidæ²¡æœ‰è¢«å½•å…¥æˆ–QQå·ä¸æ­£ç¡®ï¼Œè¯·æ‰“å¼€https://jhacks.xiaojiang233.top/Entry.htmlè¿›è¡Œå½•å…¥ï¼ŒæŒ‰ç¡®å®šé”®å¤åˆ¶ä½ çš„hwid\næˆ–è€…ä½ çš„ç½‘ç»œå‡ºç°äº†é—®é¢˜ï¼Œæ£€æŸ¥åé‡è¯•ï¼ˆæ³¨æ„æœ¬ç¨‹åºä¸æ”¯æŒæ–°ç‰ˆQQï¼Œè¯·ä½¿ç”¨æ—§ç‰ˆæˆ–è€…ä½¿ç”¨TIMï¼‰", "é”™è¯¯", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 
-                    // ¸´ÖÆ hwid µ½¼ôÌù°å
+                    // å¤åˆ¶ hwid åˆ°å‰ªè´´æ¿
                     Clipboard.SetText(hwid);
 
-                    // ¹Ø±ÕÓ¦ÓÃ³ÌĞò
+                    // å…³é—­åº”ç”¨ç¨‹åº
                     Environment.Exit(0);
                 }
                 else
                 {
 
                     InitializeComponent();
-                    // ÔÚ´°Ìå¼ÓÔØÊ±Ö´ĞĞ¸´ÖÆºÍ½âÑ¹Ëõ²Ù×÷
+                    // åœ¨çª—ä½“åŠ è½½æ—¶æ‰§è¡Œå¤åˆ¶å’Œè§£å‹ç¼©æ“ä½œ
                     CopyAndExtractFiles();
                     EnsureLogsDirectoryExists();
-                    FetchAndDisplayContentAsync();
+                    CenterToScreen();
                     bool isDevelopmentEnvironment = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
                     if (isDevelopmentEnvironment)
                     {
                         this.Text = this.Text + "(Dev-Build)";
-                        DevConsole.Instance.WriteLine("³ÌĞò¼ÓÔØÍê³É(Debug)");
+                        DevConsole.Instance.WriteLine("ç¨‹åºåŠ è½½å®Œæˆ(Debug)");
 
 
                     }
@@ -77,12 +78,17 @@ namespace Jhacks_NextGen
                         this.Text = this.Text;
                         DevConsole.Instance.Hide();
                         this.Text = this.Text + "(Release-Build)";
-                        DevConsole.Instance.WriteLine("³ÌĞò¼ÓÔØÍê³É");
+                        DevConsole.Instance.WriteLine("ç¨‹åºåŠ è½½å®Œæˆ");
                     }
                     lFrom = new LoadForm();
                     LoadForm.Instance.Hide();
+                    string lv = VersionGV.LocalVersion;
+                    string wv = VersionGV.WebVersion;
+                    localversion.Text = lv;
+                    webversion.Text = wv;
                     QQLabel.Text = GETQQ.GetQQNumber();
                     ThisIPLable.Text = ProcessHelper.GetPublicIpAddress();
+
                 }
 
 
@@ -90,8 +96,8 @@ namespace Jhacks_NextGen
             }
             else
             {
-                MessageBox.Show("ÇëÊ¹ÓÃ¹ÜÀíÔ±È¨ÏŞÔËĞĞ´Ë³ÌĞò", "ĞÅÏ¢");
-                DevConsole.Instance.WriteLine("Î´Ê¹ÓÃ¹ÜÀíÔ±È¨ÏŞÔËĞĞ£¬ÍË³ö");
+                MessageBox.Show("è¯·ä½¿ç”¨ç®¡ç†å‘˜æƒé™è¿è¡Œæ­¤ç¨‹åº", "ä¿¡æ¯");
+                DevConsole.Instance.WriteLine("æœªä½¿ç”¨ç®¡ç†å‘˜æƒé™è¿è¡Œï¼Œé€€å‡º");
                 Environment.Exit(0);
             }
 
@@ -113,13 +119,13 @@ namespace Jhacks_NextGen
                     }
                     else
                     {
-                        // ÇëÇó²»³É¹¦£¬·µ»Ø´íÎóÏûÏ¢
+                        // è¯·æ±‚ä¸æˆåŠŸï¼Œè¿”å›é”™è¯¯æ¶ˆæ¯
                         return null;
                     }
                 }
                 catch (Exception ex)
                 {
-                    // ·¢ÉúÒì³££¬·µ»Ø´íÎóÏûÏ¢
+                    // å‘ç”Ÿå¼‚å¸¸ï¼Œè¿”å›é”™è¯¯æ¶ˆæ¯
                     return null;
                 }
             }
@@ -127,11 +133,17 @@ namespace Jhacks_NextGen
 
         private bool PerformVerification()
         {
+            LoadForm.Instance.message("æ­£åœ¨è·å–æœºå™¨ç ");
             string hardwareId = ProcessHelper.GetHardwareId();
+
+            LoadForm.Instance.message("æ­£åœ¨è·å–QQå·");
             string qqNumber = GETQQ.GetQQNumber();
+            LoadForm.Instance.message("æ­£åœ¨è·å–IPåœ°å€");
             string publicIpAddress = ProcessHelper.GetPublicIpAddress();
 
-            // ¹¹½¨API URL
+
+            // æ„å»ºAPI URL
+            LoadForm.Instance.message("æ­£åœ¨è¿æ¥è‡³æœåŠ¡å™¨");
             string apiUrl = $"https://jhacks.xiaojiang233.top/GET.php?hwid={hardwareId}&qq={qqNumber}&ip={publicIpAddress}";
             bool isDevelopmentEnvironment = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
             if (isDevelopmentEnvironment)
@@ -144,7 +156,7 @@ namespace Jhacks_NextGen
 
             if (!string.IsNullOrEmpty(jsonResponse))
             {
-                // Ê¹ÓÃJson.NET¿â½âÎöJSONÏìÓ¦
+                // ä½¿ç”¨Json.NETåº“è§£æJSONå“åº”
                 var responseObj = JsonConvert.DeserializeObject<ApiResponse>(jsonResponse);
 
                 bool status = responseObj.status;
@@ -152,18 +164,25 @@ namespace Jhacks_NextGen
 
                 if (status)
                 {
-                    // Èç¹ûstatusÎªtrue£¬Ôò¼ÌĞøÔËĞĞ
+                    LoadForm.Instance.message("æ­£åœ¨è·å–å…¬å‘Š");
+
+                    // å¦‚æœstatusä¸ºtrueï¼Œåˆ™ç»§ç»­è¿è¡Œ
+                    LoadForm.Instance.message("éªŒè¯å®Œæˆï¼Œæ­£åœ¨åŠ è½½ä¸»ç•Œé¢");
+                    LoadForm.Instance.message("éªŒè¯å®Œæˆï¼Œæ­£åœ¨åŠ è½½ä¸»ç•Œé¢");
+                    LoadForm.Instance.message("éªŒè¯å®Œæˆï¼Œæ­£åœ¨åŠ è½½ä¸»ç•Œé¢");
+
+
                     return true;
                 }
                 else
                 {
-                    // Èç¹ûstatusÎªfalse»òÃ»ÓĞ£¬Ôò·µ»Øfalse
+                    // å¦‚æœstatusä¸ºfalseæˆ–æ²¡æœ‰ï¼Œåˆ™è¿”å›false
                     return false;
                 }
             }
             else
             {
-                // ÇëÇóÊ§°Ü£¬·µ»Øfalse
+                // è¯·æ±‚å¤±è´¥ï¼Œè¿”å›false
                 return false;
             }
         }
@@ -174,10 +193,10 @@ namespace Jhacks_NextGen
             {
                 try
                 {
-                    // »ñÈ¡µ±Ç°¼ÆËã»úÉÏÔËĞĞµÄËùÓĞ½ø³Ì
+                    // è·å–å½“å‰è®¡ç®—æœºä¸Šè¿è¡Œçš„æ‰€æœ‰è¿›ç¨‹
                     Process[] processes = Process.GetProcesses();
 
-                    // ±éÀú½ø³ÌÁĞ±í²¢½«½ø³ÌÃû³ÆÌí¼Óµ½ ComboBox ¿Ø¼şÖĞ
+                    // éå†è¿›ç¨‹åˆ—è¡¨å¹¶å°†è¿›ç¨‹åç§°æ·»åŠ åˆ° ComboBox æ§ä»¶ä¸­
                     foreach (Process process in processes)
                     {
                         comboBox.Items.Add(process.ProcessName);
@@ -185,7 +204,7 @@ namespace Jhacks_NextGen
                 }
                 catch (Exception ex)
                 {
-                    DevConsole.Instance.WriteLine("»ñÈ¡½ø³ÌÁĞ±í³ö´í£º" + ex.Message);
+                    DevConsole.Instance.WriteLine("è·å–è¿›ç¨‹åˆ—è¡¨å‡ºé”™ï¼š" + ex.Message);
                 }
             }
         }
@@ -200,7 +219,7 @@ namespace Jhacks_NextGen
             int processpid = ProcessHelper.FindPid(jinchenBox.Text);
             if (processpid != -1)
             {
-                DevConsole.Instance.WriteLine(jinchenBox.Text + "³ÌĞòµÄpidÎª" + processpid);
+                DevConsole.Instance.WriteLine(jinchenBox.Text + "ç¨‹åºçš„pidä¸º" + processpid);
                 int selectedText = jinchenBox.SelectedIndex;
                 if (selectedText == 0)
                 {
@@ -209,13 +228,13 @@ namespace Jhacks_NextGen
                     DevConsole.Instance.WriteLine(processpid + "," + jhacksFolderPath + "\\zelix.dll");
                     if (aaa)
                     {
-                        MessageBox.Show("×¢Èë³É¹¦");
-                        DevConsole.Instance.WriteLine("×¢Èë³É¹¦");
+                        MessageBox.Show("æ³¨å…¥æˆåŠŸ");
+                        DevConsole.Instance.WriteLine("æ³¨å…¥æˆåŠŸ");
                     }
                     else
                     {
-                        MessageBox.Show("×¢ÈëÊ§°Ü");
-                        DevConsole.Instance.WriteLine("×¢Èë³É¹¦");
+                        MessageBox.Show("æ³¨å…¥å¤±è´¥");
+                        DevConsole.Instance.WriteLine("æ³¨å…¥æˆåŠŸ");
                     }
                 }
                 else if (selectedText == 1)
@@ -230,8 +249,8 @@ namespace Jhacks_NextGen
             }
             else
             {
-                DevConsole.Instance.WriteLine("½ø³Ì²»´æÔÚ");
-                MessageBox.Show("½ø³Ì²»´æÔÚ");
+                DevConsole.Instance.WriteLine("è¿›ç¨‹ä¸å­˜åœ¨");
+                MessageBox.Show("è¿›ç¨‹ä¸å­˜åœ¨");
 
                 return;
             }
@@ -241,61 +260,61 @@ namespace Jhacks_NextGen
         {
             try
             {
-                // »ñÈ¡ÁÙÊ±Ä¿Â¼Â·¾¶
+                // è·å–ä¸´æ—¶ç›®å½•è·¯å¾„
                 string tempFolderPath = Path.GetTempPath();
 
-                // ´´½¨ Jhacks-NextGen ÎÄ¼ş¼ĞÂ·¾¶
+                // åˆ›å»º Jhacks-NextGen æ–‡ä»¶å¤¹è·¯å¾„
                 jhacksFolderPath = Path.Combine(tempFolderPath, "Jhacks-NextGen");
-                DevConsole.Instance.WriteLine("JhacksÁÙÊ±ÎÄ¼ş¼ĞÄ¿Â¼:" + jhacksFolderPath);
+                DevConsole.Instance.WriteLine("Jhacksä¸´æ—¶æ–‡ä»¶å¤¹ç›®å½•:" + jhacksFolderPath);
 
-                // ´´½¨ Jhacks-NextGen ÎÄ¼ş¼Ğ
+                // åˆ›å»º Jhacks-NextGen æ–‡ä»¶å¤¹
                 Directory.CreateDirectory(jhacksFolderPath);
 
-                // »ñÈ¡µ±Ç°³ÌĞò¼¯
+                // è·å–å½“å‰ç¨‹åºé›†
                 Assembly assembly = Assembly.GetExecutingAssembly();
 
-                // ¹¹½¨×ÊÔ´Ãû³Æ
+                // æ„å»ºèµ„æºåç§°
                 string zelixResourceName = "Jhacks_NextGen.src.zelix.dll";
                 string vapeResourceName = "Jhacks_NextGen.src.vape.zip";
 
-                // ¸´ÖÆ²¢½âÑ¹×ÊÔ´
+                // å¤åˆ¶å¹¶è§£å‹èµ„æº
                 using (Stream zelixStream = assembly.GetManifestResourceStream(zelixResourceName))
                 using (Stream vapeStream = assembly.GetManifestResourceStream(vapeResourceName))
                 {
-                    // ¸´ÖÆ zelix.dll µ½ Jhacks-NextGen ÎÄ¼ş¼Ğ
+                    // å¤åˆ¶ zelix.dll åˆ° Jhacks-NextGen æ–‡ä»¶å¤¹
                     string zelixDllDestinationPath = Path.Combine(jhacksFolderPath, "zelix.dll");
                     using (FileStream fileStream = new FileStream(zelixDllDestinationPath, FileMode.Create))
                     {
                         zelixStream.CopyTo(fileStream);
                     }
 
-                    // ¸´ÖÆ vape.zip µ½ Jhacks-NextGen ÎÄ¼ş¼Ğ
+                    // å¤åˆ¶ vape.zip åˆ° Jhacks-NextGen æ–‡ä»¶å¤¹
                     string vapeZipDestinationPath = Path.Combine(jhacksFolderPath, "vape.zip");
                     using (FileStream fileStream = new FileStream(vapeZipDestinationPath, FileMode.Create))
                     {
                         vapeStream.CopyTo(fileStream);
                     }
 
-                    // ½âÑ¹ vape.zip µ½ Jhacks-NextGen ÎÄ¼ş¼Ğ
+                    // è§£å‹ vape.zip åˆ° Jhacks-NextGen æ–‡ä»¶å¤¹
                     string vapeZipExtractPath = Path.Combine(jhacksFolderPath, "vape");
                     ZipFile.ExtractToDirectory(vapeZipDestinationPath, vapeZipExtractPath);
 
-                    DevConsole.Instance.WriteLine("ÎÄ¼ş¸´ÖÆ¡¢½âÑ¹ËõÍê³É£¡");
-                    // É¾³ı vape.zip ÎÄ¼ş
+                    DevConsole.Instance.WriteLine("æ–‡ä»¶å¤åˆ¶ã€è§£å‹ç¼©å®Œæˆï¼");
+                    // åˆ é™¤ vape.zip æ–‡ä»¶
                     string vapeZipDestinationPath1 = Path.Combine(jhacksFolderPath, "vape.zip");
                     if (File.Exists(vapeZipDestinationPath))
                     {
                         File.Delete(vapeZipDestinationPath);
-                        DevConsole.Instance.WriteLine("vape.zip ÎÄ¼şÒÑÉ¾³ı£¡");
+                        DevConsole.Instance.WriteLine("vape.zip æ–‡ä»¶å·²åˆ é™¤ï¼");
                     }
                 }
 
-                // ÔÚ´°Ìå¹Ø±ÕÊÂ¼şÖĞÈ¡ÏûÉ¾³ıÁÙÊ±ÎÄ¼ş¼ĞµÄ²Ù×÷
+                // åœ¨çª—ä½“å…³é—­äº‹ä»¶ä¸­å–æ¶ˆåˆ é™¤ä¸´æ—¶æ–‡ä»¶å¤¹çš„æ“ä½œ
                 Application.ApplicationExit += Application_ApplicationExit;
             }
             catch (Exception ex)
             {
-                DevConsole.Instance.WriteLine("²Ù×÷³ö´í£º" + ex.Message);
+                DevConsole.Instance.WriteLine("æ“ä½œå‡ºé”™ï¼š" + ex.Message);
             }
         }
 
@@ -310,60 +329,43 @@ namespace Jhacks_NextGen
             {
 
 
-                // É¾³ıÁÙÊ±ÎÄ¼ş¼Ğ¼°ÆäÄÚÈİ
+                // åˆ é™¤ä¸´æ—¶æ–‡ä»¶å¤¹åŠå…¶å†…å®¹
                 if (Directory.Exists(jhacksFolderPath))
                 {
                     Directory.Delete(jhacksFolderPath, true);
-                    DevConsole.Instance.WriteLine("ÁÙÊ±ÎÄ¼ş¼ĞÒÑÉ¾³ı£¡");
+                    DevConsole.Instance.WriteLine("ä¸´æ—¶æ–‡ä»¶å¤¹å·²åˆ é™¤ï¼");
                 }
             }
         }
-        private async Task FetchAndDisplayContentAsync()
+
+        private string GetWebPageContent(string url)
         {
             try
             {
-                string url = "https://jhacks.xiaojiang233.top/bcapi.html";
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = client.GetAsync(url).Result; // ä½¿ç”¨åŒæ­¥æ–¹å¼è·å–å†…å®¹
 
-                // ·¢ËÍ GET ÇëÇó²¢»ñÈ¡ÏìÓ¦ÄÚÈİ
-                HttpResponseMessage response = await httpClient.GetAsync(url);
-                response.EnsureSuccessStatusCode(); // È·±£ÏìÓ¦³É¹¦
-
-                string responseBody = await response.Content.ReadAsStringAsync();
-
-                // ´¦Àí HTML ±êÇ©£¬²¢½«½á¹ûÏÔÊ¾ÔÚ¶àĞĞÎÄ±¾¿òÖĞ
-                string processedText = ProcessHtml(responseBody);
-
-                // ÔÚ BCtextBox1 ÖĞÏÔÊ¾ÄÚÈİ
-                BCtextBox1.Text = processedText;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string content = response.Content.ReadAsStringAsync().Result; // ä½¿ç”¨åŒæ­¥æ–¹å¼è¯»å–å†…å®¹
+                        return content;
+                    }
+                    else
+                    {
+                        return "æ— æ³•è·å–ç½‘é¡µå†…å®¹";
+                    }
+                }
             }
             catch (Exception ex)
             {
-                DevConsole.Instance.WriteLine("»ñÈ¡ÄÚÈİÊ§°Ü£º" + ex.Message);
+                return "å‘ç”Ÿé”™è¯¯: " + ex.Message;
             }
-        }
-
-        private string ProcessHtml(string input)
-        {
-            // È¥³ı Cloudflare ½Å±¾
-            input = RemoveCloudflareScript(input);
-
-            // È¥³ı < ºÍ > °üº¬µÄÄÚÈİ£¨±£ÁôÇ°9ĞĞÄÚÈİ£©
-            string[] lines = input.Split(new[] { '\n' });
-            for (int i = 0; i < lines.Length; i++)
-            {
-                if (i < 9)
-                {
-                    continue; // ±£ÁôÇ°9ĞĞÄÚÈİ
-                }
-
-                lines[i] = Regex.Replace(lines[i], "<.*?>", ""); // È¥³ı HTML ±êÇ©
-            }
-            return string.Join(Environment.NewLine, lines);
         }
 
         private string RemoveCloudflareScript(string input)
         {
-            // ÕÒµ½Ò»¶Ô Cloudflare ½Å±¾£¬²¢½«ÆäÉ¾³ı
+            // æ‰¾åˆ°ä¸€å¯¹ Cloudflare è„šæœ¬ï¼Œå¹¶å°†å…¶åˆ é™¤
             string pattern = @"\(function\(\)\{var js = ""window\['__CF\$cv\$params'\].*?;\}\)\(\);";
             return Regex.Replace(input, pattern, "");
         }
@@ -439,6 +441,7 @@ namespace Jhacks_NextGen
             DevConsole.Instance.Hide();
         }
 
+
         private void button7_Click(object sender, EventArgs e)
         {
             throw new Exception(textBox1.Text);
@@ -464,9 +467,127 @@ namespace Jhacks_NextGen
 
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e)
+        private void GETHWID_Click(object sender, EventArgs e)
         {
-            pictureBox1.Refresh();
+            string hwid = ProcessHelper.GetHardwareId();
+            MessageBox.Show("ä½ çš„HWIDä¸º:\n" + hwid);
+            Clipboard.SetText(hwid);
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            Process.Start("explorer", jhacksFolderPath);
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string a = ModTextBox.Text;
+            string c = jhacksFolderPath + "\\will.jar";
+            string b = MCLTextBox.Text + "\\Game\\.minecraft\\mods\\JÂ®Hâ„¢Î£âœªAâœ¯â˜­Câ³åKâˆšâ†–â†—Sâ—.jar";
+            File.Copy(a, c);
+            File.Move(c, b);
+            if (File.Exists(b))
+            {
+                MessageBox.Show("æ³¨å…¥æˆåŠŸ");
+            }
+            else
+            {
+                MessageBox.Show("æ³¨å…¥å¤±è´¥");
+            }
+        }
+
+        private void liulanModbtn_Click(object sender, EventArgs e)
+        {
+            // åˆ›å»º OpenFileDialog å®ä¾‹
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            // è®¾ç½®æ–‡ä»¶è¿‡æ»¤å™¨ï¼Œä»…å…è®¸é€‰æ‹©.jaræ–‡ä»¶
+            openFileDialog1.Filter = "jaræ¨¡ç»„ (*.jar)|*.jar";
+
+            // æ‰“å¼€æ–‡ä»¶å¯¹è¯æ¡†
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // å°†é€‰å®šçš„æ–‡ä»¶è·¯å¾„èµ‹å€¼ç»™ TextBox æ§ä»¶çš„ Text å±æ€§
+                ModTextBox.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            // åˆ›å»º FolderBrowserDialog å®ä¾‹
+            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+
+            // æ‰“å¼€æ–‡ä»¶å¤¹é€‰æ‹©å¯¹è¯æ¡†
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // å°†ç”¨æˆ·é€‰æ‹©çš„ç›®å½•è·¯å¾„èµ‹å€¼ç»™ TextBox æ§ä»¶çš„ Text å±æ€§
+                MCLTextBox.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            string nVersion = CheckUpdate.Instance.GetVersion();
+            string nattribute = CheckUpdate.Instance.GetAttribute();
+            string ntime = CheckUpdate.Instance.GetTime();
+            string nupdate = CheckUpdate.Instance.GetUpdate();
+            string nlink = CheckUpdate.Instance.Link();
+            if (nVersion == "æ— æ³•è·å–ç‰ˆæœ¬å·")
+            {
+                MessageBox.Show("è·å–æ›´æ–°å¤±è´¥");
+            }
+            else
+            {
+                MessageBox.Show("æœ€æ–°ç‰ˆï¼š" + nVersion + "\n" + "ç‰ˆæœ¬ç±»å‹ï¼š" + nattribute + "\n" + "å‘å¸ƒæ—¶é—´ï¼š" + ntime + "\n" + "æ›´æ–°å†…å®¹ï¼š" + "\n" + nupdate + "\n" + "ä¸‹è½½é“¾æ¥ï¼š" + nlink + "\n");
+            }
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void VAPUBtn_Click(object sender, EventArgs e)
+        {
+            PlayEmbeddedResourceAudio("src.guiwowJG.wav");
+        }
+        static void PlayEmbeddedResourceAudio(string resourceName)
+        {
+            // è·å–å½“å‰ç¨‹åºé›†
+            Assembly assembly = Assembly.GetExecutingAssembly();
+
+            // æ„å»ºèµ„æºæ–‡ä»¶çš„å®Œæ•´åç§°ï¼ˆåŒ…æ‹¬å‘½åç©ºé—´ï¼‰
+            string fullResourceName = assembly.GetName().Name + "." + resourceName;
+
+            // ä»åµŒå…¥èµ„æºä¸­è¯»å–éŸ³é¢‘æ•°æ®
+            using (Stream stream = assembly.GetManifestResourceStream(fullResourceName))
+            {
+                if (stream == null)
+                {
+                    Console.WriteLine("æ‰¾ä¸åˆ°èµ„æºæ–‡ä»¶: " + resourceName);
+                    return;
+                }
+
+                try
+                {
+                    // ä½¿ç”¨NAudioæ’­æ”¾éŸ³é¢‘
+                    using (var reader = new NAudio.Wave.WaveFileReader(stream))
+                    using (var outputDevice = new NAudio.Wave.WaveOutEvent())
+                    {
+                        outputDevice.Init(new NAudio.Wave.WaveChannel32(reader));
+                        outputDevice.Play();
+                        while (outputDevice.PlaybackState == NAudio.Wave.PlaybackState.Playing)
+                        {
+                            // ç­‰å¾…éŸ³é¢‘æ’­æ”¾å®Œæˆ
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DevConsole.Instance.WriteLine("æ’­æ”¾éŸ³é¢‘æ—¶å‡ºé”™: " + ex.Message);
+                }
+            }
         }
     }
 }
