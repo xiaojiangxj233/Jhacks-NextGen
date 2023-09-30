@@ -10,6 +10,7 @@ using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace Jhacks_NextGen
@@ -23,6 +24,9 @@ namespace Jhacks_NextGen
         private static bool shouldDeleteFolder = true;
         private string QQNumber = GETQQ.GetQQNumber();
         private LoadForm lFrom;
+        private const string apiUrl = "https://4399.js.mcdds.cn/get.php";
+        private const string apiUrl2 = "https://4399.js.mcdds.cn/get_sauth.php";
+        private int remainingTime = 0;
 
         private string hwid = ProcessHelper.GetHardwareId();
         public MainForm()
@@ -683,7 +687,191 @@ namespace Jhacks_NextGen
         {
 
         }
+
+        private async void GetSauthBtn_Click(object sender, EventArgs e)
+        {
+            SauthTextBox.Clear();
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+                        var data = System.Text.Json.JsonSerializer.Deserialize<ApiResponse3>(json);
+
+                        if (data.code == 1)
+                        {
+                            // 获取成功
+                            label24.Text = "获取成功";
+                            remainingTime = 10; // 设置初始剩余时间为10秒
+                            SauthTimer.Start();
+                            var sauthData = System.Text.Json.JsonSerializer.Deserialize<SauthJson>(data.account);
+                            if (sauthData != null)
+                            {
+                                // 获取 sauth_json 中的数据
+                                SauthTextBox.Text = sauthData.sauth_json;
+                            }
+
+                        }
+                        else if (data.code == -2)
+                        {
+                            // 打开 Xjauth 窗口
+                            OpenXjauthWindow();
+                        }
+                        else
+                        {
+                            // 获取失败
+                            label24.Text = "获取失败";
+                        }
+                    }
+                    else
+                    {
+                        // 获取失败
+                        label24.Text = "获取失败";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // 发生错误
+                label24.Text = "发生错误：" + ex.Message;
+                DevConsole.Instance.WriteLine("发生错误：" + ex.Message);
+            }
+        }
+        private void OpenXjauthWindow()
+        {
+            XjauthForm xjauthForm = new XjauthForm();
+            xjauthForm.ShowDialog();
+
+            // 等待窗体关闭后继续执行
+            ContinueGetData();
+        }
+        public class SauthJson
+        {
+            public string sauth_json { get; set; }
+        }
+        private void SauthTimer_Tick(object sender, EventArgs e)
+        {
+            remainingTime--;
+            if (remainingTime <= 0)
+            {
+                SauthTimer.Stop();
+                GetSauthBtn.Enabled = true;
+                label24.Text = "还未获取";
+            }
+            else
+            {
+                label24.Text = $"获取成功，还有{remainingTime}秒才能再次获取";
+            }
+        }
+        public class ApiResponse3
+        {
+            public int code { get; set; }
+            public string account { get; set; }
+        }
+
+
+        private async void Get4399Btn_Click(object sender, EventArgs e)
+        {
+            Get4399Btn.Enabled = false;
+            AccountTextBox.Clear();
+            PasswordTextBox.Clear();
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+
+                        // 使用 System.Text.Json 的 JsonSerializer
+                        var data = System.Text.Json.JsonSerializer.Deserialize<ApiResponse2>(json);
+
+                        if (data.code == 1)
+                        {
+                            Status4399Label.Text = "获取成功";
+                            remainingTime = 10; // 设置初始剩余时间为10秒
+                            Four399Timer.Start();
+                            AccountTextBox.Text = data.account.account;
+                            PasswordTextBox.Text = data.account.password;
+                        }
+                        else if (data.code == -2)
+                        {
+                            // 创建并显示 xjauth 窗体
+                            XjauthForm xjauthForm = new XjauthForm();
+                            xjauthForm.ShowDialog();
+
+                            // 窗体关闭后继续执行
+                            ContinueGetData();
+                        }
+                        else
+                        {
+                            Status4399Label.Text = "获取失败";
+                            Get4399Btn.Enabled = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Status4399Label.Text = "发生错误：" + ex.Message;
+                DevConsole.Instance.WriteLine("获取Sauth失败:" + ex.Message);
+                Get4399Btn.Enabled = true;
+
+            }
+        }
+        private void ContinueGetData()
+        {
+            // 在 xjauth 窗体关闭后继续执行获取数据
+            Get4399Btn.Enabled = true;
+            Status4399Label.Text = "还未获取";
+        }
+        private void Four399Timer_Tick(object sender, EventArgs e)
+        {
+            remainingTime--;
+            if (remainingTime <= 0)
+            {
+                Four399Timer.Stop();
+                Get4399Btn.Enabled = true;
+                Status4399Label.Text = "还未获取";
+            }
+            else
+            {
+                Status4399Label.Text = $"获取成功，还有{remainingTime}秒才能再次获取";
+            }
+        }
+        public class ApiResponse2
+        {
+            public int code { get; set; }
+            public string msg { get; set; }
+            public AccountInfo account { get; set; }
+            public int surplus { get; set; }
+        }
+        public class AccountInfo
+        {
+            public string account { get; set; }
+            public string password { get; set; }
+        }
+
+        private void CopyAccountBtn_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(AccountTextBox.Text);
+        }
+
+        private void CopyPasswdBtn_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(PasswordTextBox.Text);
+        }
     }
+
+
+
 }
+
 
 

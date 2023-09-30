@@ -82,6 +82,22 @@
             Tools = new TabPage();
             tabControl2 = new TabControl();
             JSXHJ = new TabPage();
+            panel4 = new Panel();
+            label24 = new Label();
+            GetSauthBtn = new Button();
+            CopySauthBtn = new Button();
+            SauthTextBox = new TextBox();
+            label23 = new Label();
+            panel3 = new Panel();
+            CopyPasswdBtn = new Button();
+            CopyAccountBtn = new Button();
+            label22 = new Label();
+            Get4399Btn = new Button();
+            Status4399Label = new Label();
+            label20 = new Label();
+            label19 = new Label();
+            PasswordTextBox = new TextBox();
+            AccountTextBox = new TextBox();
             linkLabel1 = new LinkLabel();
             label18 = new Label();
             ABCD = new TabPage();
@@ -97,23 +113,9 @@
             button4 = new Button();
             label4 = new Label();
             openFileDialog1 = new OpenFileDialog();
-            timer1 = new System.Windows.Forms.Timer(components);
+            Four399Timer = new System.Windows.Forms.Timer(components);
             folderBrowserDialog1 = new FolderBrowserDialog();
-            panel3 = new Panel();
-            panel4 = new Panel();
-            AccountTextBox = new TextBox();
-            PasswordTextBox = new TextBox();
-            label19 = new Label();
-            label20 = new Label();
-            label21 = new Label();
-            button15 = new Button();
-            label22 = new Label();
-            label23 = new Label();
-            textBox5 = new TextBox();
-            CopyAccountBtn = new Button();
-            CopyPasswdBtn = new Button();
-            button16 = new Button();
-            button17 = new Button();
+            SauthTimer = new System.Windows.Forms.Timer(components);
             tabControl1.SuspendLayout();
             Home.SuspendLayout();
             panel2.SuspendLayout();
@@ -128,10 +130,10 @@
             Tools.SuspendLayout();
             tabControl2.SuspendLayout();
             JSXHJ.SuspendLayout();
+            panel4.SuspendLayout();
+            panel3.SuspendLayout();
             ABCD.SuspendLayout();
             About.SuspendLayout();
-            panel3.SuspendLayout();
-            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -696,6 +698,174 @@
             JSXHJ.Text = "网易小号机";
             JSXHJ.UseVisualStyleBackColor = true;
             // 
+            // panel4
+            // 
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(label24);
+            panel4.Controls.Add(GetSauthBtn);
+            panel4.Controls.Add(CopySauthBtn);
+            panel4.Controls.Add(SauthTextBox);
+            panel4.Controls.Add(label23);
+            panel4.Location = new Point(402, 43);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(378, 339);
+            panel4.TabIndex = 3;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Microsoft YaHei UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label24.Location = new Point(3, 231);
+            label24.Name = "label24";
+            label24.Size = new Size(96, 28);
+            label24.TabIndex = 9;
+            label24.Text = "还未获取";
+            // 
+            // GetSauthBtn
+            // 
+            GetSauthBtn.Enabled = false;
+            GetSauthBtn.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            GetSauthBtn.Location = new Point(11, 301);
+            GetSauthBtn.Name = "GetSauthBtn";
+            GetSauthBtn.Size = new Size(362, 33);
+            GetSauthBtn.TabIndex = 10;
+            GetSauthBtn.Text = "获取";
+            GetSauthBtn.UseVisualStyleBackColor = true;
+            GetSauthBtn.Click += GetSauthBtn_Click;
+            // 
+            // CopySauthBtn
+            // 
+            CopySauthBtn.Enabled = false;
+            CopySauthBtn.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            CopySauthBtn.Location = new Point(11, 262);
+            CopySauthBtn.Name = "CopySauthBtn";
+            CopySauthBtn.Size = new Size(361, 33);
+            CopySauthBtn.TabIndex = 9;
+            CopySauthBtn.Text = "复制";
+            CopySauthBtn.UseVisualStyleBackColor = true;
+            // 
+            // SauthTextBox
+            // 
+            SauthTextBox.Location = new Point(12, 64);
+            SauthTextBox.Multiline = true;
+            SauthTextBox.Name = "SauthTextBox";
+            SauthTextBox.Size = new Size(361, 164);
+            SauthTextBox.TabIndex = 8;
+            SauthTextBox.Text = "Sauth获取暂时不可用";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            label23.Location = new Point(105, 9);
+            label23.Name = "label23";
+            label23.Size = new Size(170, 41);
+            label23.TabIndex = 7;
+            label23.Text = "Sauth获取";
+            // 
+            // panel3
+            // 
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(CopyPasswdBtn);
+            panel3.Controls.Add(CopyAccountBtn);
+            panel3.Controls.Add(label22);
+            panel3.Controls.Add(Get4399Btn);
+            panel3.Controls.Add(Status4399Label);
+            panel3.Controls.Add(label20);
+            panel3.Controls.Add(label19);
+            panel3.Controls.Add(PasswordTextBox);
+            panel3.Controls.Add(AccountTextBox);
+            panel3.Location = new Point(9, 43);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(378, 339);
+            panel3.TabIndex = 2;
+            // 
+            // CopyPasswdBtn
+            // 
+            CopyPasswdBtn.Location = new Point(300, 132);
+            CopyPasswdBtn.Name = "CopyPasswdBtn";
+            CopyPasswdBtn.Size = new Size(65, 23);
+            CopyPasswdBtn.TabIndex = 8;
+            CopyPasswdBtn.Text = "复制";
+            CopyPasswdBtn.UseVisualStyleBackColor = true;
+            CopyPasswdBtn.Click += CopyPasswdBtn_Click;
+            // 
+            // CopyAccountBtn
+            // 
+            CopyAccountBtn.Location = new Point(300, 64);
+            CopyAccountBtn.Name = "CopyAccountBtn";
+            CopyAccountBtn.Size = new Size(65, 23);
+            CopyAccountBtn.TabIndex = 7;
+            CopyAccountBtn.Text = "复制";
+            CopyAccountBtn.UseVisualStyleBackColor = true;
+            CopyAccountBtn.Click += CopyAccountBtn_Click;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Location = new Point(112, 9);
+            label22.Name = "label22";
+            label22.Size = new Size(158, 41);
+            label22.TabIndex = 6;
+            label22.Text = "4399账号";
+            // 
+            // Get4399Btn
+            // 
+            Get4399Btn.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            Get4399Btn.Location = new Point(46, 243);
+            Get4399Btn.Name = "Get4399Btn";
+            Get4399Btn.Size = new Size(279, 77);
+            Get4399Btn.TabIndex = 5;
+            Get4399Btn.Text = "获取";
+            Get4399Btn.UseVisualStyleBackColor = true;
+            Get4399Btn.Click += Get4399Btn_Click;
+            // 
+            // Status4399Label
+            // 
+            Status4399Label.AutoSize = true;
+            Status4399Label.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            Status4399Label.Location = new Point(3, 201);
+            Status4399Label.Name = "Status4399Label";
+            Status4399Label.Size = new Size(92, 27);
+            Status4399Label.TabIndex = 4;
+            Status4399Label.Text = "还未获取";
+            Status4399Label.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(26, 112);
+            label20.Name = "label20";
+            label20.Size = new Size(44, 17);
+            label20.TabIndex = 3;
+            label20.Text = "密码：";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(22, 44);
+            label19.Name = "label19";
+            label19.Size = new Size(48, 17);
+            label19.TabIndex = 2;
+            label19.Text = " 账号：";
+            // 
+            // PasswordTextBox
+            // 
+            PasswordTextBox.Location = new Point(22, 132);
+            PasswordTextBox.Name = "PasswordTextBox";
+            PasswordTextBox.ReadOnly = true;
+            PasswordTextBox.Size = new Size(272, 23);
+            PasswordTextBox.TabIndex = 1;
+            // 
+            // AccountTextBox
+            // 
+            AccountTextBox.Location = new Point(22, 64);
+            AccountTextBox.Name = "AccountTextBox";
+            AccountTextBox.ReadOnly = true;
+            AccountTextBox.Size = new Size(272, 23);
+            AccountTextBox.TabIndex = 0;
+            // 
             // linkLabel1
             // 
             linkLabel1.AutoSize = true;
@@ -851,152 +1021,15 @@
             openFileDialog1.FileName = "openFileDialog1";
             openFileDialog1.Filter = "DLL文件(*.dll)|*.dll";
             // 
-            // panel3
+            // Four399Timer
             // 
-            panel3.BorderStyle = BorderStyle.FixedSingle;
-            panel3.Controls.Add(CopyPasswdBtn);
-            panel3.Controls.Add(CopyAccountBtn);
-            panel3.Controls.Add(label22);
-            panel3.Controls.Add(button15);
-            panel3.Controls.Add(label21);
-            panel3.Controls.Add(label20);
-            panel3.Controls.Add(label19);
-            panel3.Controls.Add(PasswordTextBox);
-            panel3.Controls.Add(AccountTextBox);
-            panel3.Location = new Point(9, 43);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(378, 339);
-            panel3.TabIndex = 2;
+            Four399Timer.Interval = 1000;
+            Four399Timer.Tick += Four399Timer_Tick;
             // 
-            // panel4
+            // SauthTimer
             // 
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(button17);
-            panel4.Controls.Add(button16);
-            panel4.Controls.Add(textBox5);
-            panel4.Controls.Add(label23);
-            panel4.Location = new Point(402, 43);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(378, 339);
-            panel4.TabIndex = 3;
-            // 
-            // AccountTextBox
-            // 
-            AccountTextBox.Location = new Point(22, 64);
-            AccountTextBox.Name = "AccountTextBox";
-            AccountTextBox.Size = new Size(272, 23);
-            AccountTextBox.TabIndex = 0;
-            // 
-            // PasswordTextBox
-            // 
-            PasswordTextBox.Location = new Point(22, 132);
-            PasswordTextBox.Name = "PasswordTextBox";
-            PasswordTextBox.Size = new Size(272, 23);
-            PasswordTextBox.TabIndex = 1;
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Location = new Point(22, 44);
-            label19.Name = "label19";
-            label19.Size = new Size(48, 17);
-            label19.TabIndex = 2;
-            label19.Text = " 账号：";
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Location = new Point(26, 112);
-            label20.Name = "label20";
-            label20.Size = new Size(44, 17);
-            label20.TabIndex = 3;
-            label20.Text = "密码：";
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Microsoft YaHei UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
-            label21.Location = new Point(122, 190);
-            label21.Name = "label21";
-            label21.Size = new Size(133, 38);
-            label21.TabIndex = 4;
-            label21.Text = "还未获取";
-            // 
-            // button15
-            // 
-            button15.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            button15.Location = new Point(47, 231);
-            button15.Name = "button15";
-            button15.Size = new Size(279, 77);
-            button15.TabIndex = 5;
-            button15.Text = "获取";
-            button15.UseVisualStyleBackColor = true;
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            label22.Location = new Point(112, 9);
-            label22.Name = "label22";
-            label22.Size = new Size(158, 41);
-            label22.TabIndex = 6;
-            label22.Text = "4399账号";
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
-            label23.Location = new Point(105, 9);
-            label23.Name = "label23";
-            label23.Size = new Size(170, 41);
-            label23.TabIndex = 7;
-            label23.Text = "Sauth获取";
-            // 
-            // textBox5
-            // 
-            textBox5.Location = new Point(12, 64);
-            textBox5.Multiline = true;
-            textBox5.Name = "textBox5";
-            textBox5.Size = new Size(361, 164);
-            textBox5.TabIndex = 8;
-            // 
-            // CopyAccountBtn
-            // 
-            CopyAccountBtn.Location = new Point(300, 64);
-            CopyAccountBtn.Name = "CopyAccountBtn";
-            CopyAccountBtn.Size = new Size(65, 23);
-            CopyAccountBtn.TabIndex = 7;
-            CopyAccountBtn.Text = "复制";
-            CopyAccountBtn.UseVisualStyleBackColor = true;
-            // 
-            // CopyPasswdBtn
-            // 
-            CopyPasswdBtn.Location = new Point(300, 132);
-            CopyPasswdBtn.Name = "CopyPasswdBtn";
-            CopyPasswdBtn.Size = new Size(65, 23);
-            CopyPasswdBtn.TabIndex = 8;
-            CopyPasswdBtn.Text = "复制";
-            CopyPasswdBtn.UseVisualStyleBackColor = true;
-            // 
-            // button16
-            // 
-            button16.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
-            button16.Location = new Point(12, 236);
-            button16.Name = "button16";
-            button16.Size = new Size(361, 33);
-            button16.TabIndex = 9;
-            button16.Text = "复制";
-            button16.UseVisualStyleBackColor = true;
-            // 
-            // button17
-            // 
-            button17.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
-            button17.Location = new Point(12, 286);
-            button17.Name = "button17";
-            button17.Size = new Size(362, 33);
-            button17.TabIndex = 10;
-            button17.Text = "获取";
-            button17.UseVisualStyleBackColor = true;
+            SauthTimer.Interval = 1000;
+            SauthTimer.Tick += SauthTimer_Tick;
             // 
             // MainForm
             // 
@@ -1031,14 +1064,14 @@
             tabControl2.ResumeLayout(false);
             JSXHJ.ResumeLayout(false);
             JSXHJ.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
             ABCD.ResumeLayout(false);
             ABCD.PerformLayout();
             About.ResumeLayout(false);
             About.PerformLayout();
-            panel3.ResumeLayout(false);
-            panel3.PerformLayout();
-            panel4.ResumeLayout(false);
-            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1056,7 +1089,7 @@
         private TabControl tabControl2;
         private TabPage ABCD;
         private TabPage more;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Four399Timer;
         private TabPage Home;
         private Label label1;
         private Button button6;
@@ -1115,18 +1148,20 @@
         private Label label18;
         private Panel panel4;
         private Panel panel3;
-        private Button button15;
-        private Label label21;
+        private Button Get4399Btn;
+        private Label Status4399Label;
         private Label label20;
         private Label label19;
         private TextBox PasswordTextBox;
         private TextBox AccountTextBox;
-        private TextBox textBox5;
+        private TextBox SauthTextBox;
         private Label label23;
         private Button CopyPasswdBtn;
         private Button CopyAccountBtn;
         private Label label22;
-        private Button button17;
-        private Button button16;
+        private Button GetSauthBtn;
+        private Button CopySauthBtn;
+        private Label label24;
+        private System.Windows.Forms.Timer SauthTimer;
     }
 }
