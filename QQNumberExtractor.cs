@@ -69,6 +69,7 @@ namespace Jhacks_NextGen
             }
             catch (Exception)
             {
+                throw new Exception("GETQQ.exe释放失败");
                 return false; // 释放失败
             }
         }
@@ -114,7 +115,10 @@ namespace Jhacks_NextGen
             }
             else
             {
-                throw new FileNotFoundException("GETQQ.exe 未找到，你是不是删除了这个文件");
+                MessageBox.Show("GETQQ.exe 未找到，你是不是删除了这个文件\n如果程序自动释放失败，请重启程序");
+                Application.Exit();
+                return "114514";
+                
             }
         }
 

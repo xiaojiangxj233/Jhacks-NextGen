@@ -1,5 +1,6 @@
 ﻿using Microsoft.JSInterop;
 using Newtonsoft.Json;
+using System;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO.Compression;
@@ -7,6 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text.RegularExpressions;
 
 namespace Jhacks_NextGen
@@ -41,7 +44,7 @@ namespace Jhacks_NextGen
             }
             bool isRunningAsAdmin = ProcessHelper.IsRunningAsAdmin();
             if (isRunningAsAdmin)
-            {   
+            {
                 // 在初始化组件之前执行硬件 ID 检查
 
                 bool isHwidValid = PerformVerification();
@@ -63,6 +66,7 @@ namespace Jhacks_NextGen
                     InitializeComponent();
                     // 在窗体加载时执行复制和解压缩操作
                     CopyAndExtractFiles();
+
                     EnsureLogsDirectoryExists();
                     CenterToScreen();
                     bool isDevelopmentEnvironment = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
@@ -86,8 +90,8 @@ namespace Jhacks_NextGen
                     string wv = VersionGV.WebVersion;
                     localversion.Text = lv;
                     webversion.Text = wv;
-                    QQLabel.Text = GETQQ.GetQQNumber();
-                    ThisIPLable.Text = ProcessHelper.GetPublicIpAddress();
+                    QQLabel.Text = SomeV.QQNumber;
+                    ThisIPLable.Text = SomeV.IPAddress;
 
                 }
 
@@ -133,17 +137,40 @@ namespace Jhacks_NextGen
 
         private bool PerformVerification()
         {
+            bool bbb = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
+            if (bbb)
+            {
+                // 显示一个消息框，并捕获用户的操作结果
+                DialogResult result = MessageBox.Show("检测到处于调试模式中\n请问是否跳过验证步骤", "Debug Message", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                // 判断用户的操作结果
+                if (result == DialogResult.Yes)
+                {
+                    DevConsole.Instance.WriteLine("已跳过验证步骤，正在加载UI");
+                    return true;
+
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+            }
             LoadForm.Instance.message("正在获取机器码");
+            DevConsole.Instance.WriteLine("正在获取机器码");
             string hardwareId = ProcessHelper.GetHardwareId();
-
+            SomeV.HWID = hardwareId;
             LoadForm.Instance.message("正在获取QQ号");
+            DevConsole.Instance.WriteLine("正在获取QQ号");
             string qqNumber = GETQQ.GetQQNumber();
+            SomeV.QQNumber = qqNumber;
             LoadForm.Instance.message("正在获取IP地址");
+            DevConsole.Instance.WriteLine("正在获取IP地址");
             string publicIpAddress = ProcessHelper.GetPublicIpAddress();
-
+            SomeV.IPAddress = publicIpAddress;
 
             // 构建API URL
             LoadForm.Instance.message("正在连接至服务器");
+            DevConsole.Instance.WriteLine("正在连接至服务器");
             string apiUrl = $"https://jhacks.xiaojiang233.top/GET.php?hwid={hardwareId}&qq={qqNumber}&ip={publicIpAddress}";
             bool isDevelopmentEnvironment = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
             if (isDevelopmentEnvironment)
@@ -214,48 +241,7 @@ namespace Jhacks_NextGen
             ProcessList.PopulateProcessList(jinchenBox);
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            int processpid = ProcessHelper.FindPid(jinchenBox.Text);
-            if (processpid != -1)
-            {
-                DevConsole.Instance.WriteLine(jinchenBox.Text + "程序的pid为" + processpid);
-                int selectedText = jinchenBox.SelectedIndex;
-                if (selectedText == 0)
-                {
-                    bool aaa = true;
-                    DLLInjector.Instance.InjectDLL(processpid, jhacksFolderPath + "\\zelix.dll");
-                    DevConsole.Instance.WriteLine(processpid + "," + jhacksFolderPath + "\\zelix.dll");
-                    if (aaa)
-                    {
-                        MessageBox.Show("注入成功");
-                        DevConsole.Instance.WriteLine("注入成功");
-                    }
-                    else
-                    {
-                        MessageBox.Show("注入失败");
-                        DevConsole.Instance.WriteLine("注入成功");
-                    }
-                }
-                else if (selectedText == 1)
-                {
 
-                }
-                else
-                {
-
-                }
-
-            }
-            else
-            {
-                DevConsole.Instance.WriteLine("进程不存在");
-                MessageBox.Show("进程不存在");
-
-                return;
-            }
-
-        }
         private void CopyAndExtractFiles()
         {
             try
@@ -276,10 +262,12 @@ namespace Jhacks_NextGen
                 // 构建资源名称
                 string zelixResourceName = "Jhacks_NextGen.src.zelix.dll";
                 string vapeResourceName = "Jhacks_NextGen.src.vape.zip";
+                string leaveResourceName = "Jhacks_NextGen.src.Leave.dll";
 
                 // 复制并解压资源
                 using (Stream zelixStream = assembly.GetManifestResourceStream(zelixResourceName))
                 using (Stream vapeStream = assembly.GetManifestResourceStream(vapeResourceName))
+                using (Stream leaveStream = assembly.GetManifestResourceStream(leaveResourceName))
                 {
                     // 复制 zelix.dll 到 Jhacks-NextGen 文件夹
                     string zelixDllDestinationPath = Path.Combine(jhacksFolderPath, "zelix.dll");
@@ -293,6 +281,12 @@ namespace Jhacks_NextGen
                     using (FileStream fileStream = new FileStream(vapeZipDestinationPath, FileMode.Create))
                     {
                         vapeStream.CopyTo(fileStream);
+                    }
+                    // 复制 leave.dll 到 Jhacks-NextGen 文件夹
+                    string leavedllDestinationPath = Path.Combine(jhacksFolderPath, "leave.dll");
+                    using (FileStream fileStream = new FileStream(leavedllDestinationPath, FileMode.Create))
+                    {
+                        leaveStream.CopyTo(fileStream);
                     }
 
                     // 解压 vape.zip 到 Jhacks-NextGen 文件夹
@@ -386,7 +380,7 @@ namespace Jhacks_NextGen
 
         private void button4_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://qm.qq.com/cgi-bin/qm/qr?k=KBXdszckZORIyvIPoGUQ-N3AXzxLV_8w&jump_from=webapi&authKey=KNH0Jehi+S9f82d7tEYep7CGILDJ1KOyLNlqVxTmVIoJQ4U+MVts104+i4xVceUA");
+            ShellExecute(IntPtr.Zero, "open", "\"https://qm.qq.com/cgi-bin/qm/qr?k=KBXdszckZORIyvIPoGUQ-N3AXzxLV_8w&jump_from=webapi&authKey=KNH0Jehi+S9f82d7tEYep7CGILDJ1KOyLNlqVxTmVIoJQ4U+MVts104+i4xVceUA\"", null, null, 1);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -469,7 +463,7 @@ namespace Jhacks_NextGen
 
         private void GETHWID_Click(object sender, EventArgs e)
         {
-            string hwid = ProcessHelper.GetHardwareId();
+            string hwid = SomeV.HWID;
             MessageBox.Show("你的HWID为:\n" + hwid);
             Clipboard.SetText(hwid);
 
@@ -565,7 +559,7 @@ namespace Jhacks_NextGen
             {
                 if (stream == null)
                 {
-                    Console.WriteLine("找不到资源文件: " + resourceName);
+                    DevConsole.Instance.WriteLine("找不到资源文件: " + resourceName);
                     return;
                 }
 
@@ -588,6 +582,106 @@ namespace Jhacks_NextGen
                     DevConsole.Instance.WriteLine("播放音频时出错: " + ex.Message);
                 }
             }
+        }
+
+        private void SelectDLLBtn_Click_1(object sender, EventArgs e)
+        {
+            // 创建 OpenFileDialog 实例
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            // 设置文件过滤器，仅允许选择.jar文件
+            openFileDialog1.Filter = "Windows动态链接库文件 (*.dll)|*.dll";
+
+            // 打开文件对话框
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // 将选定的文件路径赋值给 TextBox 控件的 Text 属性
+                SelectBox.Text = openFileDialog1.FileName;
+                SelectBox.Items.Add(openFileDialog1.FileName);
+            }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            int processpid = ProcessHelper.FindPid(jinchenBox.Text);
+            if (processpid == -1)
+            {
+                DevConsole.Instance.WriteLine(jinchenBox.Text + "程序的pid为" + processpid);
+                int selectedIndex = jinchenBox.SelectedIndex;
+                if (selectedIndex == -1)
+                {
+                    bool aaa;
+
+                    aaa = Injector.DLLInjector(processpid, jhacksFolderPath + "\\zelix.dll");
+                    DevConsole.Instance.WriteLine(processpid + "," + jhacksFolderPath + "\\zelix.dll");
+                    if (aaa)
+                    {
+                        MessageBox.Show("注入成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DevConsole.Instance.WriteLine("注入成功");
+                    }
+                    else
+                    {
+                        MessageBox.Show("注入失败", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DevConsole.Instance.WriteLine("注入失败");
+                    }
+                }
+                else if (selectedIndex == 9)
+                {
+                    bool bbb;
+
+                    bbb = Injector.DLLInjector(processpid, jhacksFolderPath + "\\leave.dll");
+                    DevConsole.Instance.WriteLine(processpid + "," + jhacksFolderPath + "\\leave.dll");
+                    if (bbb)
+                    {
+                        MessageBox.Show("注入成功", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        DevConsole.Instance.WriteLine("注入成功");
+                    }
+                    else
+                    {
+                        MessageBox.Show("注入失败", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        DevConsole.Instance.WriteLine("注入失败");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("选项失效", "提示", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
+            }
+            else
+            {
+                DevConsole.Instance.WriteLine("进程不存在");
+                MessageBox.Show("进程不存在");
+
+                return;
+            }
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            ProcessList.PopulateProcessList(jinchenBox);
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            using (QQFetcher qqFetcher = new QQFetcher())
+            {
+                string qqNumbers = qqFetcher.GetQQNumbers();
+                MessageBox.Show("获取到的QQ号码：" + qqNumbers);
+            }
+
+        }
+        [DllImport("shell32.dll")]
+        public static extern int ShellExecute(IntPtr hwnd, string lpOperation, string lpFile, string lpParameters, string lpDirectory, int nShowCmd);
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ShellExecute(IntPtr.Zero, "open", "https://4399.js.mcdds.cn/", null, null, 1);
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

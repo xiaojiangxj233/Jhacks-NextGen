@@ -48,11 +48,12 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Microsoft YaHei UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point);
-            label2.Location = new Point(161, 120);
+            label2.Location = new Point(161, 100);
             label2.Name = "label2";
             label2.Size = new Size(126, 25);
             label2.TabIndex = 2;
             label2.Text = "正在初始化中";
+            label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label3
             // 

@@ -14,7 +14,8 @@ namespace Jhacks_NextGen
     public static class SomeV
     {
         // 这是拿Visual Studio Code敲的
-        public static string HWID = ProcessHelper.GetHardwareId();
-        public static string IPAddress = ProcessHelper.GetPublicIpAddress();
+        public static string HWID;
+        public static string IPAddress;
+        public static string QQNumber;
     }
 }

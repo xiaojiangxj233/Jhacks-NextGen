@@ -31,17 +31,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Lib\OpenURL.dll" />
     <None Remove="src\GETQQ.exe" />
+    <None Remove="src\Leave.dll" />
     <None Remove="vape.zip" />
     <None Remove="zelix.dll" />
   </ItemGroup>
 
   <ItemGroup>
     <Content Include="Fav.ico" />
+    <Content Include="Lib\OpenURL.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="src\GETQQ.exe" />
+    <EmbeddedResource Include="src\Leave.dll" />
     <EmbeddedResource Include="src\vape.zip" />
     <EmbeddedResource Include="src\zelix.dll" />
   </ItemGroup>

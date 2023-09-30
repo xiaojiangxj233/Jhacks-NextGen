@@ -5,6 +5,7 @@ using System.Linq;
 using System.Management;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,5 +74,26 @@ namespace Jhacks_NextGen
 
         }
 
+    }
+    public class OpenURLInterop
+    {
+        // 使用 DllImport 声明 OpenURL.dll 中的 OpenURL 方法
+        [DllImport("OpenURL.dll", CallingConvention = CallingConvention.Cdecl)]
+        public static extern void OpenURL(string url);
+
+        // 这是一个可选的包装方法，如果需要进行更多的处理或错误处理，可以在这里添加代码。
+        public static void OpenURLWrapper(string url)
+        {
+            try
+            {
+                OpenURL(url);
+            }
+            catch (Exception ex)
+            {
+                // 处理异常，如果有的话
+                DevConsole.Instance.WriteLine($"发生异常：{ex.Message}");
+                MessageBox.Show($"发生异常：{ex.Message}", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

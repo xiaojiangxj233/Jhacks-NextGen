@@ -81,7 +81,11 @@
             label6 = new Label();
             Tools = new TabPage();
             tabControl2 = new TabControl();
+            JSXHJ = new TabPage();
+            linkLabel1 = new LinkLabel();
+            label18 = new Label();
             ABCD = new TabPage();
+            button12 = new Button();
             button7 = new Button();
             textBox1 = new TextBox();
             button6 = new Button();
@@ -95,6 +99,21 @@
             openFileDialog1 = new OpenFileDialog();
             timer1 = new System.Windows.Forms.Timer(components);
             folderBrowserDialog1 = new FolderBrowserDialog();
+            panel3 = new Panel();
+            panel4 = new Panel();
+            AccountTextBox = new TextBox();
+            PasswordTextBox = new TextBox();
+            label19 = new Label();
+            label20 = new Label();
+            label21 = new Label();
+            button15 = new Button();
+            label22 = new Label();
+            label23 = new Label();
+            textBox5 = new TextBox();
+            CopyAccountBtn = new Button();
+            CopyPasswdBtn = new Button();
+            button16 = new Button();
+            button17 = new Button();
             tabControl1.SuspendLayout();
             Home.SuspendLayout();
             panel2.SuspendLayout();
@@ -108,8 +127,11 @@
             Settings.SuspendLayout();
             Tools.SuspendLayout();
             tabControl2.SuspendLayout();
+            JSXHJ.SuspendLayout();
             ABCD.SuspendLayout();
             About.SuspendLayout();
+            panel3.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // tabControl1
@@ -298,6 +320,7 @@
             label1.Size = new Size(519, 83);
             label1.TabIndex = 0;
             label1.Text = "Jhacks-Nextgen";
+            label1.Click += label1_Click;
             // 
             // pictureBox1
             // 
@@ -550,12 +573,13 @@
             // button1
             // 
             button1.Font = new Font("Microsoft YaHei UI", 26.25F, FontStyle.Regular, GraphicsUnit.Point);
-            button1.Location = new Point(225, 169);
+            button1.Location = new Point(219, 167);
             button1.Name = "button1";
             button1.Size = new Size(352, 189);
             button1.TabIndex = 14;
             button1.Text = "注入";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click_1;
             // 
             // label3
             // 
@@ -585,6 +609,7 @@
             button2.TabIndex = 11;
             button2.Text = "刷新";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click_1;
             // 
             // jinchenBox
             // 
@@ -604,17 +629,17 @@
             SelectDLLBtn.TabIndex = 9;
             SelectDLLBtn.Text = "浏览";
             SelectDLLBtn.UseVisualStyleBackColor = true;
+            SelectDLLBtn.Click += SelectDLLBtn_Click_1;
             // 
             // SelectBox
             // 
             SelectBox.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             SelectBox.FormattingEnabled = true;
-            SelectBox.Items.AddRange(new object[] { "Zelix Cracked(1.12.2)" });
+            SelectBox.Items.AddRange(new object[] { "Zelix Cracked(1.12.2)", "Leave 1.1.3" });
             SelectBox.Location = new Point(157, 29);
             SelectBox.Name = "SelectBox";
             SelectBox.Size = new Size(511, 29);
             SelectBox.TabIndex = 8;
-            SelectBox.Text = "Zelix Cracked(1.12.2)";
             // 
             // Settings
             // 
@@ -649,6 +674,7 @@
             // 
             // tabControl2
             // 
+            tabControl2.Controls.Add(JSXHJ);
             tabControl2.Controls.Add(ABCD);
             tabControl2.Controls.Add(more);
             tabControl2.Location = new Point(0, 3);
@@ -657,8 +683,44 @@
             tabControl2.Size = new Size(795, 420);
             tabControl2.TabIndex = 0;
             // 
+            // JSXHJ
+            // 
+            JSXHJ.Controls.Add(panel4);
+            JSXHJ.Controls.Add(panel3);
+            JSXHJ.Controls.Add(linkLabel1);
+            JSXHJ.Controls.Add(label18);
+            JSXHJ.Location = new Point(4, 26);
+            JSXHJ.Name = "JSXHJ";
+            JSXHJ.Size = new Size(787, 390);
+            JSXHJ.TabIndex = 2;
+            JSXHJ.Text = "网易小号机";
+            JSXHJ.UseVisualStyleBackColor = true;
+            // 
+            // linkLabel1
+            // 
+            linkLabel1.AutoSize = true;
+            linkLabel1.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            linkLabel1.Location = new Point(668, 14);
+            linkLabel1.Name = "linkLabel1";
+            linkLabel1.Size = new Size(74, 21);
+            linkLabel1.TabIndex = 1;
+            linkLabel1.TabStop = true;
+            linkLabel1.Text = "访问原站";
+            linkLabel1.LinkClicked += linkLabel1_LinkClicked;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            label18.Location = new Point(74, 14);
+            label18.Name = "label18";
+            label18.Size = new Size(535, 21);
+            label18.TabIndex = 0;
+            label18.Text = "你使用的小号机为jsmh小号获取（https://4399.js.mcdds.cn/）的API获取";
+            // 
             // ABCD
             // 
+            ABCD.Controls.Add(button12);
             ABCD.Controls.Add(button7);
             ABCD.Controls.Add(textBox1);
             ABCD.Controls.Add(button6);
@@ -671,6 +733,16 @@
             ABCD.TabIndex = 0;
             ABCD.Text = "114514";
             ABCD.UseVisualStyleBackColor = true;
+            // 
+            // button12
+            // 
+            button12.Location = new Point(235, 260);
+            button12.Name = "button12";
+            button12.Size = new Size(327, 96);
+            button12.TabIndex = 8;
+            button12.Text = "测试使用新方法获取QQ号";
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // button7
             // 
@@ -779,6 +851,153 @@
             openFileDialog1.FileName = "openFileDialog1";
             openFileDialog1.Filter = "DLL文件(*.dll)|*.dll";
             // 
+            // panel3
+            // 
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(CopyPasswdBtn);
+            panel3.Controls.Add(CopyAccountBtn);
+            panel3.Controls.Add(label22);
+            panel3.Controls.Add(button15);
+            panel3.Controls.Add(label21);
+            panel3.Controls.Add(label20);
+            panel3.Controls.Add(label19);
+            panel3.Controls.Add(PasswordTextBox);
+            panel3.Controls.Add(AccountTextBox);
+            panel3.Location = new Point(9, 43);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(378, 339);
+            panel3.TabIndex = 2;
+            // 
+            // panel4
+            // 
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(button17);
+            panel4.Controls.Add(button16);
+            panel4.Controls.Add(textBox5);
+            panel4.Controls.Add(label23);
+            panel4.Location = new Point(402, 43);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(378, 339);
+            panel4.TabIndex = 3;
+            // 
+            // AccountTextBox
+            // 
+            AccountTextBox.Location = new Point(22, 64);
+            AccountTextBox.Name = "AccountTextBox";
+            AccountTextBox.Size = new Size(272, 23);
+            AccountTextBox.TabIndex = 0;
+            // 
+            // PasswordTextBox
+            // 
+            PasswordTextBox.Location = new Point(22, 132);
+            PasswordTextBox.Name = "PasswordTextBox";
+            PasswordTextBox.Size = new Size(272, 23);
+            PasswordTextBox.TabIndex = 1;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(22, 44);
+            label19.Name = "label19";
+            label19.Size = new Size(48, 17);
+            label19.TabIndex = 2;
+            label19.Text = " 账号：";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(26, 112);
+            label20.Name = "label20";
+            label20.Size = new Size(44, 17);
+            label20.TabIndex = 3;
+            label20.Text = "密码：";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Microsoft YaHei UI", 21.75F, FontStyle.Regular, GraphicsUnit.Point);
+            label21.Location = new Point(122, 190);
+            label21.Name = "label21";
+            label21.Size = new Size(133, 38);
+            label21.TabIndex = 4;
+            label21.Text = "还未获取";
+            // 
+            // button15
+            // 
+            button15.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            button15.Location = new Point(47, 231);
+            button15.Name = "button15";
+            button15.Size = new Size(279, 77);
+            button15.TabIndex = 5;
+            button15.Text = "获取";
+            button15.UseVisualStyleBackColor = true;
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            label22.Location = new Point(112, 9);
+            label22.Name = "label22";
+            label22.Size = new Size(158, 41);
+            label22.TabIndex = 6;
+            label22.Text = "4399账号";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Microsoft YaHei UI", 24F, FontStyle.Regular, GraphicsUnit.Point);
+            label23.Location = new Point(105, 9);
+            label23.Name = "label23";
+            label23.Size = new Size(170, 41);
+            label23.TabIndex = 7;
+            label23.Text = "Sauth获取";
+            // 
+            // textBox5
+            // 
+            textBox5.Location = new Point(12, 64);
+            textBox5.Multiline = true;
+            textBox5.Name = "textBox5";
+            textBox5.Size = new Size(361, 164);
+            textBox5.TabIndex = 8;
+            // 
+            // CopyAccountBtn
+            // 
+            CopyAccountBtn.Location = new Point(300, 64);
+            CopyAccountBtn.Name = "CopyAccountBtn";
+            CopyAccountBtn.Size = new Size(65, 23);
+            CopyAccountBtn.TabIndex = 7;
+            CopyAccountBtn.Text = "复制";
+            CopyAccountBtn.UseVisualStyleBackColor = true;
+            // 
+            // CopyPasswdBtn
+            // 
+            CopyPasswdBtn.Location = new Point(300, 132);
+            CopyPasswdBtn.Name = "CopyPasswdBtn";
+            CopyPasswdBtn.Size = new Size(65, 23);
+            CopyPasswdBtn.TabIndex = 8;
+            CopyPasswdBtn.Text = "复制";
+            CopyPasswdBtn.UseVisualStyleBackColor = true;
+            // 
+            // button16
+            // 
+            button16.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            button16.Location = new Point(12, 236);
+            button16.Name = "button16";
+            button16.Size = new Size(361, 33);
+            button16.TabIndex = 9;
+            button16.Text = "复制";
+            button16.UseVisualStyleBackColor = true;
+            // 
+            // button17
+            // 
+            button17.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
+            button17.Location = new Point(12, 286);
+            button17.Name = "button17";
+            button17.Size = new Size(362, 33);
+            button17.TabIndex = 10;
+            button17.Text = "获取";
+            button17.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -810,10 +1029,16 @@
             Settings.PerformLayout();
             Tools.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
+            JSXHJ.ResumeLayout(false);
+            JSXHJ.PerformLayout();
             ABCD.ResumeLayout(false);
             ABCD.PerformLayout();
             About.ResumeLayout(false);
             About.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            panel4.ResumeLayout(false);
+            panel4.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -884,5 +1109,24 @@
         private TextBox textBox2;
         private Button button13;
         private Button button14;
+        private Button button12;
+        private TabPage JSXHJ;
+        private LinkLabel linkLabel1;
+        private Label label18;
+        private Panel panel4;
+        private Panel panel3;
+        private Button button15;
+        private Label label21;
+        private Label label20;
+        private Label label19;
+        private TextBox PasswordTextBox;
+        private TextBox AccountTextBox;
+        private TextBox textBox5;
+        private Label label23;
+        private Button CopyPasswdBtn;
+        private Button CopyAccountBtn;
+        private Label label22;
+        private Button button17;
+        private Button button16;
     }
 }
