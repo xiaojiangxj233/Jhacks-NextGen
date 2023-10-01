@@ -116,7 +116,6 @@ namespace Jhacks_NextGen
             else
             {
                 MessageBox.Show("GETQQ.exe 未找到，你是不是删除了这个文件\n如果程序自动释放失败，请重启程序");
-                Application.Exit();
                 return "114514";
                 
             }

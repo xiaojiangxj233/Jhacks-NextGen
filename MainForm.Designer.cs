@@ -309,7 +309,7 @@
             BCtextBox1.ReadOnly = true;
             BCtextBox1.Size = new Size(300, 215);
             BCtextBox1.TabIndex = 9;
-            BCtextBox1.Text = "公告由于一些原因去世了...\r\n将在下一个版本修复";
+            BCtextBox1.Text = "公告加载失败";
             BCtextBox1.TextChanged += BCtextBox1_TextChanged;
             // 
             // label1
@@ -498,6 +498,7 @@
             button14.TabIndex = 6;
             button14.Text = "从配置文件读取JDK路径";
             button14.UseVisualStyleBackColor = true;
+            button14.Click += button14_Click;
             // 
             // button13
             // 
@@ -547,6 +548,7 @@
             liulanjdkbtn.TabIndex = 1;
             liulanjdkbtn.Text = "浏览";
             liulanjdkbtn.UseVisualStyleBackColor = true;
+            liulanjdkbtn.Click += liulanjdkbtn_Click;
             // 
             // textBox2
             // 
@@ -735,7 +737,6 @@
             // 
             // CopySauthBtn
             // 
-            CopySauthBtn.Enabled = false;
             CopySauthBtn.Font = new Font("Microsoft YaHei UI", 10.5F, FontStyle.Regular, GraphicsUnit.Point);
             CopySauthBtn.Location = new Point(11, 262);
             CopySauthBtn.Name = "CopySauthBtn";
@@ -743,6 +744,7 @@
             CopySauthBtn.TabIndex = 9;
             CopySauthBtn.Text = "复制";
             CopySauthBtn.UseVisualStyleBackColor = true;
+            CopySauthBtn.Click += CopySauthBtn_Click;
             // 
             // SauthTextBox
             // 
@@ -751,7 +753,7 @@
             SauthTextBox.Name = "SauthTextBox";
             SauthTextBox.Size = new Size(361, 164);
             SauthTextBox.TabIndex = 8;
-            SauthTextBox.Text = "Sauth获取暂时不可用";
+            SauthTextBox.Text = "Sauth获取无法使用";
             // 
             // label23
             // 

@@ -33,6 +33,8 @@
             label1 = new Label();
             contextMenuStrip1 = new ContextMenuStrip(components);
             CommandBox = new ListBox();
+            CommandTextBox = new TextBox();
+            CommandSendTextBox = new TextBox();
             button1 = new Button();
             SuspendLayout();
             // 
@@ -58,18 +60,35 @@
             CommandBox.Items.AddRange(new object[] { "Welcome to DevConsole" });
             CommandBox.Location = new Point(0, 49);
             CommandBox.Name = "CommandBox";
-            CommandBox.Size = new Size(848, 327);
+            CommandBox.Size = new Size(468, 412);
             CommandBox.TabIndex = 3;
+            // 
+            // CommandTextBox
+            // 
+            CommandTextBox.Location = new Point(474, 49);
+            CommandTextBox.Multiline = true;
+            CommandTextBox.Name = "CommandTextBox";
+            CommandTextBox.Size = new Size(371, 368);
+            CommandTextBox.TabIndex = 4;
+            // 
+            // CommandSendTextBox
+            // 
+            CommandSendTextBox.Location = new Point(474, 428);
+            CommandSendTextBox.Name = "CommandSendTextBox";
+            CommandSendTextBox.Size = new Size(315, 23);
+            CommandSendTextBox.TabIndex = 5;
+            CommandSendTextBox.TextChanged += CommandSendTextBox_TextChanged;
+            CommandSendTextBox.KeyDown += CommandSendTextBox_KeyDown;
             // 
             // button1
             // 
-            button1.Location = new Point(352, 397);
+            button1.Location = new Point(792, 426);
             button1.Name = "button1";
-            button1.Size = new Size(156, 40);
-            button1.TabIndex = 4;
-            button1.Text = "重启程序";
+            button1.Size = new Size(52, 26);
+            button1.TabIndex = 6;
+            button1.Text = "执行";
             button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            button1.Click += button1_Click_1;
             // 
             // DevConsole
             // 
@@ -77,6 +96,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(847, 463);
             Controls.Add(button1);
+            Controls.Add(CommandSendTextBox);
+            Controls.Add(CommandTextBox);
             Controls.Add(CommandBox);
             Controls.Add(label1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -95,6 +116,8 @@
         private StatusStrip statusStrip1;
         private ContextMenuStrip contextMenuStrip1;
         private ListBox CommandBox;
+        private TextBox CommandTextBox;
+        private TextBox CommandSendTextBox;
         private Button button1;
     }
 }

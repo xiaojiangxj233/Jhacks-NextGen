@@ -73,6 +73,43 @@ namespace Jhacks_NextGen
 
 
         }
+        public static bool RunCmdCommand(string command)
+        {
+            // 创建一个ProcessStartInfo对象，用于设置进程启动信息
+            ProcessStartInfo psi = new ProcessStartInfo
+            {
+                FileName = "cmd.exe", // 设置要执行的命令行程序（cmd.exe）
+                RedirectStandardInput = true, // 启用标准输入流
+                RedirectStandardOutput = true, // 启用标准输出流
+                CreateNoWindow = false, // 不创建新窗口
+                UseShellExecute = false, // 不使用操作系统外壳程序启动进程
+                Verb = "runasuser" // 以普通用户权限运行
+            };
+
+            // 创建一个Process对象，并将启动信息传递给它
+            Process process = new Process
+            {
+                StartInfo = psi
+            };
+
+            // 启动进程
+            process.Start();
+
+            // 向命令行发送命令
+            process.StandardInput.WriteLine(command);
+
+            // 等待命令执行完成
+            process.WaitForExit();
+
+            // 获取命令的退出码
+            int exitCode = process.ExitCode;
+
+            // 关闭进程
+            process.Close();
+
+            // 返回true表示成功（ExitCode为0），否则返回false
+            return exitCode == 0;
+        }
 
     }
     public class OpenURLInterop

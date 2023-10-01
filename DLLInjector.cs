@@ -46,7 +46,7 @@ namespace Jhacks_NextGen
             IntPtr hProcess = OpenProcess(PROCESS_CREATE_THREAD | PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION | PROCESS_VM_WRITE | PROCESS_VM_READ, false, pid);
             if (hProcess == IntPtr.Zero)
             {
-                Console.WriteLine("无法打开目标进程");
+                DevConsole.Instance.WriteLine("无法打开目标进程");
                 return false;
             }
 
@@ -54,7 +54,7 @@ namespace Jhacks_NextGen
             IntPtr pDllPath = VirtualAllocEx(hProcess, IntPtr.Zero, (uint)((dllpath.Length + 1) * Marshal.SizeOf(typeof(char))), MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE);
             if (pDllPath == IntPtr.Zero)
             {
-                Console.WriteLine("无法在目标进程中分配内存空间");
+                DevConsole.Instance.WriteLine("无法在目标进程中分配内存空间");
                 CloseHandle(hProcess);
                 return false;
             }
@@ -64,7 +64,7 @@ namespace Jhacks_NextGen
             bool result = WriteProcessMemory(hProcess, pDllPath, System.Text.Encoding.Default.GetBytes(dllpath), (uint)((dllpath.Length + 1) * Marshal.SizeOf(typeof(char))), out bytesWritten);
             if (!result)
             {
-                Console.WriteLine("无法将DLL文件的路径写入目标进程的内存空间");
+                DevConsole.Instance.WriteLine("无法将DLL文件的路径写入目标进程的内存空间");
                 CloseHandle(hProcess);
                 return false;
             }
@@ -73,7 +73,7 @@ namespace Jhacks_NextGen
             IntPtr pLoadLibraryA = GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA");
             if (pLoadLibraryA == IntPtr.Zero)
             {
-                Console.WriteLine("无法获取LoadLibraryA函数的地址");
+                DevConsole.Instance.WriteLine("无法获取LoadLibraryA函数的地址");
                 CloseHandle(hProcess);
                 return false;
             }
@@ -83,7 +83,7 @@ namespace Jhacks_NextGen
             IntPtr hThread = CreateRemoteThread(hProcess, IntPtr.Zero, 0, pLoadLibraryA, pDllPath, 0, out threadId);
             if (hThread == IntPtr.Zero)
             {
-                Console.WriteLine("无法在目标进程中创建一个远程线程");
+                DevConsole.Instance.WriteLine("无法在目标进程中创建一个远程线程");
                 CloseHandle(hProcess);
                 return false;
             }

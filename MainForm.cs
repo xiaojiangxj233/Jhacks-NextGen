@@ -1,4 +1,5 @@
 ﻿using Microsoft.JSInterop;
+using NAudio.Wave;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -70,7 +71,7 @@ namespace Jhacks_NextGen
                     InitializeComponent();
                     // 在窗体加载时执行复制和解压缩操作
                     CopyAndExtractFiles();
-
+                    LoadTextFromURL();
                     EnsureLogsDirectoryExists();
                     CenterToScreen();
                     bool isDevelopmentEnvironment = DevelopmentEnvironmentDetector.IsDevelopmentEnvironment();
@@ -104,7 +105,7 @@ namespace Jhacks_NextGen
             }
             else
             {
-                MessageBox.Show("请使用管理员权限运行此程序", "信息");
+                MessageBox.Show("请使用管理员权限运行此程序", "信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 DevConsole.Instance.WriteLine("未使用管理员权限运行，退出");
                 Environment.Exit(0);
             }
@@ -537,21 +538,48 @@ namespace Jhacks_NextGen
             }
             else
             {
-                MessageBox.Show("最新版：" + nVersion + "\n" + "版本类型：" + nattribute + "\n" + "发布时间：" + ntime + "\n" + "更新内容：" + "\n" + nupdate + "\n" + "下载链接：" + nlink + "\n");
+                // 显示一个消息框，并捕获用户的操作结果
+                DialogResult result = MessageBox.Show("最新版：" + nVersion + "\n" + "版本类型：" + nattribute + "\n" + "发布时间：" + ntime + "\n" + "更新内容：" + "\n" + nupdate + "\n" + "下载链接：" + nlink + "\n" + "按确定键下载" + "\n", "Update", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                // 判断用户的操作结果
+                if (result == DialogResult.Yes)
+                {
+
+                    ShellExecute(IntPtr.Zero, "open", $"\"{nlink}\"", null, null, 1);
+
+                }
+                else if (result == DialogResult.No)
+                {
+
+                }
+
             }
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("功能未写完");
         }
 
         private void VAPUBtn_Click(object sender, EventArgs e)
         {
-            PlayEmbeddedResourceAudio("src.guiwowJG.wav");
+            if (SaveAndPlayguiwowJGwav())
+            {
+                DevConsole.Instance.WriteLine("音频播放成功！");
+            }
+            else
+            {
+                DevConsole.Instance.WriteLine("音频播放失败！");
+            }
+            ProcessHelper.RunCmdCommand("cd " + jhacksFolderPath + "\\vape && " + "\"" + textBox2.Text + "\"" + " --add-opens java.base/java.lang=ALL-UNNAMED -jar " + jhacksFolderPath + "\\vape\\vape-loader.jar");
+
         }
-        static void PlayEmbeddedResourceAudio(string resourceName)
+        static bool SaveAndPlayguiwowJGwav()
         {
+            string resourceName = "Jhacks_NextGen.src.guiwowJG.wav"; // 替换为实际的资源名称
+            string targetDirectory = "Jhacks-NextGen"; // 替换为目标目录
+            string targetFileName = "guiwowJG.wav"; // 替换为目标文件名
+
             // 获取当前程序集
             Assembly assembly = Assembly.GetExecutingAssembly();
 
@@ -563,27 +591,42 @@ namespace Jhacks_NextGen
             {
                 if (stream == null)
                 {
-                    DevConsole.Instance.WriteLine("找不到资源文件: " + resourceName);
-                    return;
+                    Console.WriteLine("找不到资源文件: " + resourceName);
+                    return false;
                 }
 
                 try
                 {
-                    // 使用NAudio播放音频
-                    using (var reader = new NAudio.Wave.WaveFileReader(stream))
-                    using (var outputDevice = new NAudio.Wave.WaveOutEvent())
+                    // 创建目标目录（如果不存在）
+                    Directory.CreateDirectory(targetDirectory);
+
+                    // 构建完整的目标文件路径
+                    string targetFilePath = Path.Combine(targetDirectory, targetFileName);
+
+                    // 保存资源到目标文件
+                    using (FileStream fileStream = File.Create(targetFilePath))
                     {
-                        outputDevice.Init(new NAudio.Wave.WaveChannel32(reader));
+                        stream.CopyTo(fileStream);
+                    }
+
+                    // 使用NAudio播放音频
+                    using (var reader = new WaveFileReader(targetFilePath))
+                    using (var outputDevice = new WaveOutEvent())
+                    {
+                        outputDevice.Init(new WaveChannel32(reader));
                         outputDevice.Play();
-                        while (outputDevice.PlaybackState == NAudio.Wave.PlaybackState.Playing)
+                        while (outputDevice.PlaybackState == PlaybackState.Playing)
                         {
                             // 等待音频播放完成
                         }
                     }
+
+                    return true;
                 }
                 catch (Exception ex)
                 {
-                    DevConsole.Instance.WriteLine("播放音频时出错: " + ex.Message);
+                    Console.WriteLine("保存文件或播放音频时出错: " + ex.Message);
+                    return false;
                 }
             }
         }
@@ -682,7 +725,40 @@ namespace Jhacks_NextGen
         {
             ShellExecute(IntPtr.Zero, "open", "https://4399.js.mcdds.cn/", null, null, 1);
         }
+        private async void LoadTextFromURL()
+        {
+            string url = "https://jhacks.xiaojiang233.top/bcapi.html";
 
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    // 发送 GET 请求并获取响应
+                    HttpResponseMessage response = await client.GetAsync(url);
+
+                    // 检查响应状态
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // 从响应中读取文本内容
+                        string text = await response.Content.ReadAsStringAsync();
+
+                        // 将 \n 替换为 \r\n 以实现换行效果
+                        text = text.Replace("\n", "\r\n");
+
+                        // 将文本内容放入 BCtextBox1
+                        BCtextBox1.Text = text;
+                    }
+                    else
+                    {
+                        MessageBox.Show("无法获取文本内容。", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("发生异常：" + ex.Message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -708,11 +784,23 @@ namespace Jhacks_NextGen
                             label24.Text = "获取成功";
                             remainingTime = 10; // 设置初始剩余时间为10秒
                             SauthTimer.Start();
-                            var sauthData = System.Text.Json.JsonSerializer.Deserialize<SauthJson>(data.account);
-                            if (sauthData != null)
+                            // 提取 account 字段内的文本数据
+
+
+                            // 将提取的文本数据添加到多行文本框的新行
+                            // 显示一个消息框，并捕获用户的操作结果
+                            DialogResult result = MessageBox.Show("获取成功\n" + data.account + "\n按是以复制", "Sauth", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+
+                            // 判断用户的操作结果
+                            if (result == DialogResult.Yes)
                             {
-                                // 获取 sauth_json 中的数据
-                                SauthTextBox.Text = sauthData.sauth_json;
+                                Clipboard.SetText(data.account);
+
+
+                            }
+                            else if (result == DialogResult.No)
+                            {
+
                             }
 
                         }
@@ -721,16 +809,23 @@ namespace Jhacks_NextGen
                             // 打开 Xjauth 窗口
                             OpenXjauthWindow();
                         }
+                        else if (data.code == -4)
+                        {
+                            label24.Text = "正在冷却";
+                            Get4399Btn.Enabled = true;
+                        }
                         else
                         {
                             // 获取失败
                             label24.Text = "获取失败";
+                            Get4399Btn.Enabled = true;
                         }
                     }
                     else
                     {
                         // 获取失败
                         label24.Text = "获取失败";
+                        Get4399Btn.Enabled = true;
                     }
                 }
             }
@@ -738,9 +833,10 @@ namespace Jhacks_NextGen
             {
                 // 发生错误
                 label24.Text = "发生错误：" + ex.Message;
-                DevConsole.Instance.WriteLine("发生错误：" + ex.Message);
+                DevConsole.Instance.WriteLine("获取Sauth失败:" + ex.Message);
             }
         }
+
         private void OpenXjauthWindow()
         {
             XjauthForm xjauthForm = new XjauthForm();
@@ -809,6 +905,11 @@ namespace Jhacks_NextGen
                             // 窗体关闭后继续执行
                             ContinueGetData();
                         }
+                        else if (data.code == -4)
+                        {
+                            label24.Text = "正在冷却";
+                            Get4399Btn.Enabled = true;
+                        }
                         else
                         {
                             Status4399Label.Text = "获取失败";
@@ -820,7 +921,7 @@ namespace Jhacks_NextGen
             catch (Exception ex)
             {
                 Status4399Label.Text = "发生错误：" + ex.Message;
-                DevConsole.Instance.WriteLine("获取Sauth失败:" + ex.Message);
+                DevConsole.Instance.WriteLine("获取4399失败:" + ex.Message);
                 Get4399Btn.Enabled = true;
 
             }
@@ -829,7 +930,7 @@ namespace Jhacks_NextGen
         {
             // 在 xjauth 窗体关闭后继续执行获取数据
             Get4399Btn.Enabled = true;
-            Status4399Label.Text = "还未获取";
+            Status4399Label.Text = "现在可以获取了";
         }
         private void Four399Timer_Tick(object sender, EventArgs e)
         {
@@ -866,6 +967,31 @@ namespace Jhacks_NextGen
         private void CopyPasswdBtn_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(PasswordTextBox.Text);
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("功能未写完");
+        }
+
+        private void liulanjdkbtn_Click(object sender, EventArgs e)
+        {
+            // 创建 OpenFileDialog 实例
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+
+            openFileDialog1.Filter = "java.exe|java.exe";
+
+            // 打开文件对话框
+            if (openFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                // 将选定的文件路径赋值给 TextBox 控件的 Text 属性
+                textBox2.Text = openFileDialog1.FileName;
+            }
+        }
+
+        private void CopySauthBtn_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(SauthTextBox.Text);
         }
     }
 

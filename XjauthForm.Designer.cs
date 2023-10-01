@@ -75,7 +75,7 @@
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
-            // xhjauth
+            // XjauthForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -84,8 +84,8 @@
             Controls.Add(button1);
             Controls.Add(label1);
             Controls.Add(webView21);
-            Name = "xhjauth";
-            Text = "xhjauth";
+            Name = "XjauthForm";
+            Text = "browser";
             ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
             ResumeLayout(false);
             PerformLayout();
