@@ -73,7 +73,7 @@ namespace Jhacks_NextGen
 
         private void DevConsole_Load(object sender, EventArgs e)
         {
-            DisplayHelp();
+            DisplayWelcome();
         }
         private void CommandSendTextBox_KeyDown(object sender, KeyEventArgs e)
         {
@@ -213,6 +213,17 @@ namespace Jhacks_NextGen
             string helpText = "Available commands:\r\n" +
                               "  restart - Restart the program\r\n" +
                               "  help - Show this help message\r\n" +
+                              "  findpid <程序名> - Find PID for a program\r\n" +
+                              "  gethwid - Get HWID\r\n" +
+                              "  injectdll <pid> <dllpath> - Inject DLL into a process\r\n";
+            PrintMessage(helpText);
+        }
+        private void DisplayWelcome()
+        {
+            string helpText = "Welcome to use Jhacks-Console\r\n" +
+                              "Available commands:\r\n" +
+                              "  restart - Restart the program\r\n" +
+                              "  help - Show help message\r\n" +
                               "  findpid <程序名> - Find PID for a program\r\n" +
                               "  gethwid - Get HWID\r\n" +
                               "  injectdll <pid> <dllpath> - Inject DLL into a process\r\n";

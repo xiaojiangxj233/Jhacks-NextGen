@@ -12,7 +12,6 @@ namespace Jhacks_NextGen
 {
     public partial class XjauthForm : Form
     {
-        private static LoadForm _instance;
         public XjauthForm()
         {
             InitializeComponent();

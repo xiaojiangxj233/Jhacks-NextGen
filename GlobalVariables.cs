@@ -17,5 +17,6 @@ namespace Jhacks_NextGen
         public static string HWID;
         public static string IPAddress;
         public static string QQNumber;
+        public static string DCText;
     }
 }

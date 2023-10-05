@@ -48,6 +48,16 @@
             BCtextBox1 = new TextBox();
             label1 = new Label();
             pictureBox1 = new PictureBox();
+            NeteaseToolBox = new TabPage();
+            LogBox = new RichTextBox();
+            groupBox1 = new GroupBox();
+            label33 = new Label();
+            label32 = new Label();
+            label31 = new Label();
+            label30 = new Label();
+            label29 = new Label();
+            label28 = new Label();
+            label27 = new Label();
             Inject = new TabPage();
             tabControl3 = new TabControl();
             MOD = new TabPage();
@@ -79,6 +89,13 @@
             SelectBox = new ComboBox();
             Settings = new TabPage();
             label6 = new Label();
+            panel5 = new Panel();
+            checkBox1 = new CheckBox();
+            label26 = new Label();
+            label25 = new Label();
+            button15 = new Button();
+            label21 = new Label();
+            textBox3 = new TextBox();
             Tools = new TabPage();
             tabControl2 = new TabControl();
             JSXHJ = new TabPage();
@@ -108,6 +125,7 @@
             button3 = new Button();
             button5 = new Button();
             more = new TabPage();
+            tabPage1 = new TabPage();
             About = new TabPage();
             label5 = new Label();
             button4 = new Button();
@@ -116,17 +134,24 @@
             Four399Timer = new System.Windows.Forms.Timer(components);
             folderBrowserDialog1 = new FolderBrowserDialog();
             SauthTimer = new System.Windows.Forms.Timer(components);
+            button16 = new Button();
+            is4399 = new CheckBox();
+            label34 = new Label();
+            listView1 = new ListView();
             tabControl1.SuspendLayout();
             Home.SuspendLayout();
             panel2.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            NeteaseToolBox.SuspendLayout();
+            groupBox1.SuspendLayout();
             Inject.SuspendLayout();
             tabControl3.SuspendLayout();
             MOD.SuspendLayout();
             VAPE.SuspendLayout();
             DLL.SuspendLayout();
             Settings.SuspendLayout();
+            panel5.SuspendLayout();
             Tools.SuspendLayout();
             tabControl2.SuspendLayout();
             JSXHJ.SuspendLayout();
@@ -139,6 +164,7 @@
             // tabControl1
             // 
             tabControl1.Controls.Add(Home);
+            tabControl1.Controls.Add(NeteaseToolBox);
             tabControl1.Controls.Add(Inject);
             tabControl1.Controls.Add(Settings);
             tabControl1.Controls.Add(Tools);
@@ -336,6 +362,111 @@
             pictureBox1.TabIndex = 12;
             pictureBox1.TabStop = false;
             // 
+            // NeteaseToolBox
+            // 
+            NeteaseToolBox.Controls.Add(listView1);
+            NeteaseToolBox.Controls.Add(label34);
+            NeteaseToolBox.Controls.Add(is4399);
+            NeteaseToolBox.Controls.Add(button16);
+            NeteaseToolBox.Controls.Add(LogBox);
+            NeteaseToolBox.Controls.Add(groupBox1);
+            NeteaseToolBox.Controls.Add(label29);
+            NeteaseToolBox.Controls.Add(label28);
+            NeteaseToolBox.Controls.Add(label27);
+            NeteaseToolBox.Location = new Point(4, 26);
+            NeteaseToolBox.Name = "NeteaseToolBox";
+            NeteaseToolBox.Padding = new Padding(3);
+            NeteaseToolBox.Size = new Size(795, 419);
+            NeteaseToolBox.TabIndex = 5;
+            NeteaseToolBox.Text = "网易工具箱";
+            NeteaseToolBox.UseVisualStyleBackColor = true;
+            // 
+            // LogBox
+            // 
+            LogBox.Location = new Point(16, 65);
+            LogBox.Name = "LogBox";
+            LogBox.Size = new Size(418, 278);
+            LogBox.TabIndex = 5;
+            LogBox.Text = "";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(label33);
+            groupBox1.Controls.Add(label32);
+            groupBox1.Controls.Add(label31);
+            groupBox1.Controls.Add(label30);
+            groupBox1.Location = new Point(16, 345);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(420, 71);
+            groupBox1.TabIndex = 4;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "游戏信息";
+            // 
+            // label33
+            // 
+            label33.AutoSize = true;
+            label33.Location = new Point(93, 51);
+            label33.Name = "label33";
+            label33.Size = new Size(50, 17);
+            label33.TabIndex = 3;
+            label33.Text = "label33";
+            // 
+            // label32
+            // 
+            label32.AutoSize = true;
+            label32.Location = new Point(93, 21);
+            label32.Name = "label32";
+            label32.Size = new Size(50, 17);
+            label32.TabIndex = 2;
+            label32.Text = "label32";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Location = new Point(9, 51);
+            label31.Name = "label31";
+            label31.Size = new Size(80, 17);
+            label31.TabIndex = 1;
+            label31.Text = "服务器地址：";
+            // 
+            // label30
+            // 
+            label30.AutoSize = true;
+            label30.Location = new Point(9, 21);
+            label30.Name = "label30";
+            label30.Size = new Size(56, 17);
+            label30.TabIndex = 0;
+            label30.Text = "游戏名：";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Location = new Point(13, 43);
+            label29.Name = "label29";
+            label29.Size = new Size(44, 17);
+            label29.TabIndex = 3;
+            label29.Text = "日志：";
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(615, 21);
+            label28.Name = "label28";
+            label28.Size = new Size(155, 17);
+            label28.TabIndex = 2;
+            label28.Text = "针对HaloToolBox（确信）";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Microsoft YaHei UI", 15F, FontStyle.Regular, GraphicsUnit.Point);
+            label27.ForeColor = Color.Gold;
+            label27.Location = new Point(13, 13);
+            label27.Name = "label27";
+            label27.Size = new Size(596, 27);
+            label27.TabIndex = 1;
+            label27.Text = "Jhacks-NextGen Netease ToolBox 基于Jsmh ToolBox Beta制作";
+            // 
             // Inject
             // 
             Inject.Controls.Add(tabControl3);
@@ -376,7 +507,7 @@
             MOD.Padding = new Padding(3);
             MOD.Size = new Size(784, 387);
             MOD.TabIndex = 1;
-            MOD.Text = "模组注入";
+            MOD.Text = "模组注入(已过时)";
             MOD.UseVisualStyleBackColor = true;
             // 
             // label13
@@ -648,6 +779,7 @@
             // Settings
             // 
             Settings.Controls.Add(label6);
+            Settings.Controls.Add(panel5);
             Settings.Location = new Point(4, 26);
             Settings.Name = "Settings";
             Settings.Padding = new Padding(3);
@@ -659,12 +791,82 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Microsoft YaHei UI", 72F, FontStyle.Regular, GraphicsUnit.Point);
-            label6.Location = new Point(227, 119);
+            label6.Location = new Point(13, 3);
             label6.Name = "label6";
-            label6.Size = new Size(340, 124);
-            label6.TabIndex = 0;
-            label6.Text = "未完成";
+            label6.Size = new Size(83, 17);
+            label6.TabIndex = 3;
+            label6.Text = "Discord RPC:";
+            // 
+            // panel5
+            // 
+            panel5.BorderStyle = BorderStyle.Fixed3D;
+            panel5.Controls.Add(checkBox1);
+            panel5.Controls.Add(label26);
+            panel5.Controls.Add(label25);
+            panel5.Controls.Add(button15);
+            panel5.Controls.Add(label21);
+            panel5.Controls.Add(textBox3);
+            panel5.Location = new Point(13, 23);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(673, 68);
+            panel5.TabIndex = 2;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(3, 19);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(151, 21);
+            checkBox1.TabIndex = 6;
+            checkBox1.Text = " 开启Discord RPC服务";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(338, 37);
+            label26.Name = "label26";
+            label26.Size = new Size(173, 17);
+            label26.TabIndex = 5;
+            label26.Text = "正在使用Jhacks-NextGen开纪";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(262, 37);
+            label25.Name = "label25";
+            label25.Size = new Size(56, 17);
+            label25.TabIndex = 4;
+            label25.Text = "已设置：";
+            // 
+            // button15
+            // 
+            button15.Location = new Point(611, 0);
+            button15.Name = "button15";
+            button15.Size = new Size(55, 23);
+            button15.TabIndex = 3;
+            button15.Text = "设置";
+            button15.UseVisualStyleBackColor = true;
+            button15.Click += button15_Click;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(183, 6);
+            label21.Name = "label21";
+            label21.Size = new Size(149, 17);
+            label21.TabIndex = 2;
+            label21.Text = "正在使用Jhacks-NextGen";
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(338, 3);
+            textBox3.MaxLength = 20;
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(270, 23);
+            textBox3.TabIndex = 1;
+            textBox3.Text = "开纪";
             // 
             // Tools
             // 
@@ -681,6 +883,7 @@
             tabControl2.Controls.Add(JSXHJ);
             tabControl2.Controls.Add(ABCD);
             tabControl2.Controls.Add(more);
+            tabControl2.Controls.Add(tabPage1);
             tabControl2.Location = new Point(0, 3);
             tabControl2.Name = "tabControl2";
             tabControl2.SelectedIndex = 0;
@@ -977,6 +1180,16 @@
             more.Text = "233333";
             more.UseVisualStyleBackColor = true;
             // 
+            // tabPage1
+            // 
+            tabPage1.Location = new Point(4, 26);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(787, 390);
+            tabPage1.TabIndex = 3;
+            tabPage1.Text = "tabPage1";
+            tabPage1.UseVisualStyleBackColor = true;
+            // 
             // About
             // 
             About.Controls.Add(label5);
@@ -1033,6 +1246,43 @@
             SauthTimer.Interval = 1000;
             SauthTimer.Tick += SauthTimer_Tick;
             // 
+            // button16
+            // 
+            button16.Font = new Font("Microsoft YaHei UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            button16.Location = new Point(668, 366);
+            button16.Name = "button16";
+            button16.Size = new Size(124, 46);
+            button16.TabIndex = 6;
+            button16.Text = "启动盒子";
+            button16.UseVisualStyleBackColor = true;
+            // 
+            // is4399
+            // 
+            is4399.AutoSize = true;
+            is4399.Location = new Point(681, 345);
+            is4399.Name = "is4399";
+            is4399.Size = new Size(103, 21);
+            is4399.TabIndex = 7;
+            is4399.Text = "使用4399盒子";
+            is4399.UseVisualStyleBackColor = true;
+            // 
+            // label34
+            // 
+            label34.AutoSize = true;
+            label34.Location = new Point(440, 46);
+            label34.Name = "label34";
+            label34.Size = new Size(68, 17);
+            label34.TabIndex = 8;
+            label34.Text = "模组列表：";
+            // 
+            // listView1
+            // 
+            listView1.Location = new Point(437, 69);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(341, 270);
+            listView1.TabIndex = 9;
+            listView1.UseCompatibleStateImageBehavior = false;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 17F);
@@ -1052,6 +1302,10 @@
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            NeteaseToolBox.ResumeLayout(false);
+            NeteaseToolBox.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             Inject.ResumeLayout(false);
             tabControl3.ResumeLayout(false);
             MOD.ResumeLayout(false);
@@ -1062,6 +1316,8 @@
             DLL.PerformLayout();
             Settings.ResumeLayout(false);
             Settings.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             Tools.ResumeLayout(false);
             tabControl2.ResumeLayout(false);
             JSXHJ.ResumeLayout(false);
@@ -1100,7 +1356,6 @@
         private TextBox BCtextBox1;
         private TextBox textBox1;
         private Button button7;
-        private Label label6;
         private Panel panel1;
         private Label QQLabel;
         private Label label8;
@@ -1165,5 +1420,28 @@
         private Button CopySauthBtn;
         private Label label24;
         private System.Windows.Forms.Timer SauthTimer;
+        private Label label6;
+        private Panel panel5;
+        private Label label21;
+        private TextBox textBox3;
+        private Label label26;
+        private Label label25;
+        private Button button15;
+        private CheckBox checkBox1;
+        private TabPage tabPage1;
+        private TabPage NeteaseToolBox;
+        private Label label29;
+        private Label label28;
+        private Label label27;
+        private GroupBox groupBox1;
+        private Label label33;
+        private Label label32;
+        private Label label31;
+        private Label label30;
+        private RichTextBox LogBox;
+        private CheckBox is4399;
+        private Button button16;
+        private ListView listView1;
+        private Label label34;
     }
 }

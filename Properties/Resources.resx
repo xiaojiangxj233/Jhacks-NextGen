@@ -117,4 +117,47 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="1680252905141_685636360" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1680252905141_685636360.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="add_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\add_64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="copy_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\copy_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="done_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\done_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="done_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\done_64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="download_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\download_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="download_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\download_64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="folder_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\folder_64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reboot_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reboot_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="reboot_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\reboot_64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="waste_32px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\waste_32px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="waste_64px" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\waste_64px.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

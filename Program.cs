@@ -19,6 +19,9 @@ namespace Jhacks_NextGen
                 
             }
             LoadForm.Instance.Show();
+            Login login = new Login();
+            Application.Run(login);
+            MainForm mainForm = new MainForm();
             Application.Run(new MainForm());
             
 

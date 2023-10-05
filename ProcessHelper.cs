@@ -60,7 +60,7 @@ namespace Jhacks_NextGen
 
                 using (WebClient client = new WebClient())
                 {
-                    externalIP = client.DownloadString("http://ip.42.pl/raw");
+                    externalIP = client.DownloadString("https://api-ipv4.ip.sb/ip");
                 }
 
                 return externalIP;

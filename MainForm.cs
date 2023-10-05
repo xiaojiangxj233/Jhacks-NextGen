@@ -19,7 +19,9 @@ namespace Jhacks_NextGen
     public partial class MainForm : Form
 
     {
-
+        public Netease.RegeditRead regedit;
+        bool StartBoxButton_isFirstClick = true;
+        public static bool InitializationDone = false;
         private static HttpClient httpClient = new HttpClient();
         private static string jhacksFolderPath;
         private static bool shouldDeleteFolder = true;
@@ -56,14 +58,27 @@ namespace Jhacks_NextGen
 
                 if (!isHwidValid)
                 {
-                    MessageBox.Show("你的hwid没有被录入或QQ号不正确，请打开https://jhacks.xiaojiang233.top/Entry.html进行录入，按确定键复制你的hwid\n或者你的网络出现了问题，检查后重试（注意本程序不支持新版QQ，请使用旧版或者使用TIM）", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DialogResult result = MessageBox.Show("你的hwid没有被录入或QQ号不正确，请打开https://jhacks.xiaojiang233.top/Entry.html进行录入，按确定键复制你的hwid并打开HWID录入页面，取消复制你的HWID然后退出\n或者你的网络出现了问题，检查后重试（注意本程序不支持新版QQ，请使用旧版或者使用TIM）", "错误", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                    // 判断用户的操作结果
+                    if (result == DialogResult.OK)
+                    {
+                        Clipboard.SetText(hwid);
+                        HWIDSubmit hwidsubmit = new HWIDSubmit();
+                        hwidsubmit.ShowDialog();
 
+                    }
+                    else if (result == DialogResult.Cancel)
+                    {
+                        Clipboard.SetText(hwid);
+                        Application.Exit();
+                        Environment.Exit(0);
+                    }
 
                     // 复制 hwid 到剪贴板
-                    Clipboard.SetText(hwid);
+
 
                     // 关闭应用程序
-                    Environment.Exit(0);
+
                 }
                 else
                 {
@@ -896,7 +911,7 @@ namespace Jhacks_NextGen
                             AccountTextBox.Text = data.account.account;
                             PasswordTextBox.Text = data.account.password;
                         }
-                        else if (data.code == -2)
+                        else if (data.code == -1)
                         {
                             // 创建并显示 xjauth 窗体
                             XjauthForm xjauthForm = new XjauthForm();
@@ -926,12 +941,63 @@ namespace Jhacks_NextGen
 
             }
         }
-        private void ContinueGetData()
+        private async void ContinueGetData()
         {
-            // 在 xjauth 窗体关闭后继续执行获取数据
-            Get4399Btn.Enabled = true;
-            Status4399Label.Text = "现在可以获取了";
+            Get4399Btn.Enabled = false;
+            AccountTextBox.Clear();
+            PasswordTextBox.Clear();
+
+            try
+            {
+                using (HttpClient client = new HttpClient())
+                {
+                    HttpResponseMessage response = await client.GetAsync(apiUrl);
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string json = await response.Content.ReadAsStringAsync();
+
+                        // 使用 System.Text.Json 的 JsonSerializer
+                        var data = System.Text.Json.JsonSerializer.Deserialize<ApiResponse2>(json);
+
+                        if (data.code == 1)
+                        {
+                            Status4399Label.Text = "获取成功";
+                            remainingTime = 10; // 设置初始剩余时间为10秒
+                            Four399Timer.Start();
+                            AccountTextBox.Text = data.account.account;
+                            PasswordTextBox.Text = data.account.password;
+                        }
+                        else if (data.code == -1)
+                        {
+                            // 创建并显示 xjauth 窗体
+                            XjauthForm xjauthForm = new XjauthForm();
+                            xjauthForm.ShowDialog();
+
+                            // 窗体关闭后继续执行
+                            ContinueGetData();
+                        }
+                        else if (data.code == -4)
+                        {
+                            label24.Text = "正在冷却";
+                            Get4399Btn.Enabled = true;
+                        }
+                        else
+                        {
+                            Status4399Label.Text = "获取失败";
+                            Get4399Btn.Enabled = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Status4399Label.Text = "发生错误：" + ex.Message;
+                DevConsole.Instance.WriteLine("获取4399失败:" + ex.Message);
+                Get4399Btn.Enabled = true;
+
+            }
         }
+
         private void Four399Timer_Tick(object sender, EventArgs e)
         {
             remainingTime--;
@@ -993,11 +1059,112 @@ namespace Jhacks_NextGen
         {
             Clipboard.SetText(SauthTextBox.Text);
         }
+
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            SomeV.DCText = label21.Text + textBox3;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked)
+            {
+                DiscordRPCManager.DiscordRPC(
+                isPlaying: true,
+                details: SomeV.DCText,
+                state: SomeV.DCText,
+                largeImageKey: "1",
+                largeImageText: "114514",
+                smallImageKey: "1",
+                smallImageText: "114514",
+                startRPC: true);
+            }
+            else
+            {
+                DiscordRPCManager.DiscordRPC(
+                isPlaying: false,
+                details: SomeV.DCText,
+                state: SomeV.DCText,
+                largeImageKey: "1",
+                largeImageText: "114514",
+                smallImageKey: "1",
+                smallImageText: "114514",
+                startRPC: false);
+            }
+
+
+
+
+
+        }
+        public void LogTime()
+        {
+            Action action = () =>
+            {
+                LogBox.SelectionColor = Color.Black;
+                LogBox.SelectionFont = LogBox.Font;
+                LogBox.AppendText("\r\n[" + DateTime.Now.ToString("HH:mm:ss.fff") + "] ");
+            };
+            Invoke(action);
+        }
+
+        public void CustomLogs(string message)
+        {
+            Action action = () =>
+            {
+                LogBox.SelectionColor = Color.Black;
+                LogBox.SelectionFont = LogBox.Font;
+                LogBox.AppendText(message);
+            };
+            Invoke(action);
+        }
+        public void ShowError(string message)
+        {
+            MessageBox.Show(message, "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Process.GetCurrentProcess().Kill();
+        }
+        public void ErrorLogs(string message)
+        {
+            Action action = () =>
+            {
+                LogBox.SelectionColor = Color.Red;
+                LogBox.SelectionFont = LogBox.Font;
+                LogBox.AppendText(message);
+
+            };
+            Invoke(action);
+        }
+        public void SuccessLogs(string message)
+        {
+            Action action = () =>
+            {
+                LogBox.SelectionColor = Color.Green;
+                LogBox.SelectionFont = LogBox.Font;
+                LogBox.AppendText(message);
+
+            };
+            Invoke(action);
+        }
+        public void ImportantLogs(string message)
+        {
+            Action action = () =>
+            {
+                int start = LogBox.SelectionStart;
+                LogBox.SelectionColor = Color.Blue;
+                LogBox.SelectionFont = new Font(LogBox.Font, FontStyle.Underline);
+                LogBox.AppendText(message);
+
+            };
+            Invoke(action);
+        }
+
     }
-
-
-
 }
+
+
+
+
 
 
 
