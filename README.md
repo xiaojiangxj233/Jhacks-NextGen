@@ -1,3 +1,4 @@
+# Jhacks-NextGen Beta已停止开源，本仓库存档
 # Jhacks-NextGen
 ## 注意：Jhacks-NextGen需要.NET6.0以运行 
 ## [Jhacks-NextGen官网](https://jhacks.xiaojiang233.top/)
